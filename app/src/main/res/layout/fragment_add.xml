@@ -46,7 +46,7 @@
 
         <EditText
             android:id="@+id/goods_name_edit"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="start"
             android:layout_marginStart="10dp"
@@ -81,7 +81,7 @@
 
         <EditText
             android:id="@+id/goods_cost_edit"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="start"
             android:layout_marginStart="10dp"
@@ -116,7 +116,7 @@
 
         <EditText
             android:id="@+id/goods_brand_edit"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="start"
             android:layout_marginStart="10dp"
@@ -151,7 +151,7 @@
 
         <EditText
             android:id="@+id/goods_amount_edit"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="start"
             android:layout_marginStart="10dp"
