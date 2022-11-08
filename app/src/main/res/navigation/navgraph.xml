@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_inventoryFragment_to_addFragment"
             app:destination="@id/addFragment" />
+        <action
+            android:id="@+id/action_inventoryFragment_to_archiveFragment"
+            app:destination="@id/archiveFragment" />
     </fragment>
     <fragment
         android:id="@+id/addFragment"
@@ -22,6 +25,15 @@
         <action
             android:id="@+id/action_addFragment_to_inventoryFragment"
             app:destination="@id/inventoryFragment"
-            app:popUpToInclusive="false" />
+            app:popUpTo="@id/inventoryFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/archiveFragment"
+        android:name="com.example.inventoryapplication.ArchiveFragment"
+        android:label="fragment_archive"
+        tools:layout="@layout/fragment_archive" >
+        <action
+            android:id="@+id/action_archiveFragment_to_inventoryFragment"
+            app:destination="@id/inventoryFragment" />
     </fragment>
 </navigation>

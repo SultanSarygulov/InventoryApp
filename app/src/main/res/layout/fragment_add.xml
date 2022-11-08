@@ -31,6 +31,8 @@
         android:layout_marginTop="32dp"
         android:fontFamily="@font/roboto_medium"
         android:text="Наименование товара"
+        android:textColor="@color/myGray"
+        android:textSize="12sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
@@ -49,13 +51,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="start"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="13dp"
-            android:layout_marginBottom="13dp"
+            android:layout_margin="16dp"
             android:layout_weight="1"
             android:background="@android:color/transparent"
+            android:fontFamily="@font/roboto"
             android:hint="Впишите название товара"
             android:inputType="text"
+            android:textColor="@color/myLightGray"
             tools:ignore="TouchTargetSizeCheck" />
     </androidx.cardview.widget.CardView>
 
@@ -66,6 +68,8 @@
         android:layout_marginTop="20dp"
         android:fontFamily="@font/roboto_medium"
         android:text="Цена товара"
+        android:textColor="@color/myGray"
+        android:textSize="12sp"
         app:layout_constraintStart_toStartOf="@+id/goods_name_txt"
         app:layout_constraintTop_toBottomOf="@+id/goods_name" />
 
@@ -84,13 +88,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="start"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="13dp"
-            android:layout_marginBottom="13dp"
+            android:layout_margin="16dp"
             android:layout_weight="1"
             android:background="@android:color/transparent"
+            android:fontFamily="@font/roboto"
             android:hint="Впишите цену товара"
             android:inputType="text"
+            android:textColor="@color/myLightGray"
             tools:ignore="TouchTargetSizeCheck" />
     </androidx.cardview.widget.CardView>
 
@@ -101,6 +105,8 @@
         android:layout_marginTop="20dp"
         android:fontFamily="@font/roboto_medium"
         android:text="Производитель товара"
+        android:textColor="@color/myGray"
+        android:textSize="12sp"
         app:layout_constraintStart_toStartOf="@+id/goods_name_txt"
         app:layout_constraintTop_toBottomOf="@+id/goods_cost" />
 
@@ -119,13 +125,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="start"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="13dp"
-            android:layout_marginBottom="13dp"
+            android:layout_margin="16dp"
             android:layout_weight="1"
             android:background="@android:color/transparent"
+            android:fontFamily="@font/roboto"
             android:hint="Название производителя товара"
             android:inputType="text"
+            android:textColor="@color/myLightGray"
             tools:ignore="TouchTargetSizeCheck" />
     </androidx.cardview.widget.CardView>
 
@@ -136,6 +142,8 @@
         android:layout_marginTop="20dp"
         android:fontFamily="@font/roboto_medium"
         android:text="Количество товара"
+        android:textColor="@color/myGray"
+        android:textSize="12sp"
         app:layout_constraintStart_toStartOf="@+id/goods_name_txt"
         app:layout_constraintTop_toBottomOf="@+id/goods_brand" />
 
@@ -154,13 +162,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="start"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="13dp"
-            android:layout_marginBottom="13dp"
+            android:layout_margin="16dp"
             android:layout_weight="1"
             android:background="@android:color/transparent"
+            android:fontFamily="@font/roboto"
             android:hint="Количество товара"
             android:inputType="text"
+            android:textColor="@color/myLightGray"
             tools:ignore="TouchTargetSizeCheck" />
     </androidx.cardview.widget.CardView>
 
