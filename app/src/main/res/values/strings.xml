@@ -6,4 +6,6 @@
     <string name="add">Add</string>
     <string name="search_icon_contentDesc">search icon</string>
     <string name="search_hint">Поиск</string>
+    <string name="main_bottomnav">Главное</string>
+    <string name="archive_bottomnav">Архив</string>
 </resources>
