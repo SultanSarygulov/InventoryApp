@@ -5,15 +5,22 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.inventoryapplication.R
+import com.example.inventoryapplication.data.Goods
+import com.example.inventoryapplication.databinding.FragmentInventoryBinding
+import com.example.inventoryapplication.presentation.GoodsViewModel
 import com.example.inventoryapplication.presentation.RecyclerAdapter
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class InventoryFragment : Fragment() {
 
+    private lateinit var mGoodsViewModel: GoodsViewModel
+    //private lateinit var binding: FragmentInventoryBinding
     private val adapter = RecyclerAdapter()
 
     override fun onCreateView(
@@ -27,6 +34,11 @@ class InventoryFragment : Fragment() {
         val recyclerView: RecyclerView = view.findViewById(R.id.recyclerview)
         recyclerView.layoutManager = GridLayoutManager(this.context, 2)
         recyclerView.adapter = adapter
+
+        mGoodsViewModel = ViewModelProvider(this).get(GoodsViewModel::class.java)
+        mGoodsViewModel.readAllData.observe(viewLifecycleOwner, Observer{goods ->
+            adapter.setData(goods)
+        })
 
         val addButton: FloatingActionButton = view.findViewById(R.id.addButton)
         addButton.setOnClickListener {

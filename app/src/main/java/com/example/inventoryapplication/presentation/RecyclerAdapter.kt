@@ -3,11 +3,12 @@ package com.example.inventoryapplication.presentation
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.inventoryapplication.data.Goods
 import com.example.inventoryapplication.databinding.GoodsItemBinding
 
 class RecyclerAdapter: RecyclerView.Adapter<RecyclerAdapter.ViewHolder>() {
 
-    val list = listOf(1,2,3,4,5,6,7,8,9)
+    private var goodsList = emptyList<Goods>()
 
     inner class ViewHolder(val binding: GoodsItemBinding): RecyclerView.ViewHolder(binding.root)
 
@@ -19,11 +20,19 @@ class RecyclerAdapter: RecyclerView.Adapter<RecyclerAdapter.ViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        //holder.number.text = list[position].toString()
+        val currentGoods = goodsList[position]
         with(holder.binding){
-            name.text = list[position].toString()
+            name.text = currentGoods.name
+            cost.text = "$ ${currentGoods.cost}"
+            brand.text = currentGoods.brand
+            amount.text = "${currentGoods.amount} шт"
         }
     }
 
-    override fun getItemCount(): Int = list.size
+    fun setData(goods: List<Goods>){
+        this.goodsList = goods
+        notifyDataSetChanged()
+    }
+
+    override fun getItemCount(): Int = goodsList.size
 }
