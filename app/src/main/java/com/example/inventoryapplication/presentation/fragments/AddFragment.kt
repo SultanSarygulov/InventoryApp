@@ -1,4 +1,4 @@
-package com.example.inventoryapplication
+package com.example.inventoryapplication.presentation.fragments
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.Navigation
+import com.example.inventoryapplication.R
 
 class AddFragment : Fragment() {
 
@@ -15,7 +16,7 @@ class AddFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        (activity as AppCompatActivity).supportActionBar?.title = "Добавить товар"
+        //(activity as AppCompatActivity).supportActionBar?.title = "Добавить товар"
         // Inflate the layout for this fragment
 
         val view = inflater.inflate(R.layout.fragment_add, container, false)
@@ -27,4 +28,6 @@ class AddFragment : Fragment() {
 
         return view
     }
+
+
 }

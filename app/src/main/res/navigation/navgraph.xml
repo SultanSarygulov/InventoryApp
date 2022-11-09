@@ -7,8 +7,8 @@
 
     <fragment
         android:id="@+id/inventoryFragment"
-        android:name="com.example.inventoryapplication.InventoryFragment"
-        android:label="fragment_inventory"
+        android:name="com.example.inventoryapplication.presentation.fragments.InventoryFragment"
+        android:label="Главное"
         tools:layout="@layout/fragment_inventory" >
         <action
             android:id="@+id/action_inventoryFragment_to_addFragment"
@@ -19,8 +19,8 @@
     </fragment>
     <fragment
         android:id="@+id/addFragment"
-        android:name="com.example.inventoryapplication.AddFragment"
-        android:label="fragment_add"
+        android:name="com.example.inventoryapplication.presentation.fragments.AddFragment"
+        android:label="Добавить товар"
         tools:layout="@layout/fragment_add" >
         <action
             android:id="@+id/action_addFragment_to_inventoryFragment"
@@ -29,8 +29,8 @@
     </fragment>
     <fragment
         android:id="@+id/archiveFragment"
-        android:name="com.example.inventoryapplication.ArchiveFragment"
-        android:label="fragment_archive"
+        android:name="com.example.inventoryapplication.presentation.fragments.ArchiveFragment"
+        android:label="Архив"
         tools:layout="@layout/fragment_archive" >
         <action
             android:id="@+id/action_archiveFragment_to_inventoryFragment"

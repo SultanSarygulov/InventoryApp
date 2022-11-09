@@ -1,16 +1,15 @@
-package com.example.inventoryapplication
+package com.example.inventoryapplication.presentation.fragments
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.inventoryapplication.R
+import com.example.inventoryapplication.presentation.RecyclerAdapter
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class InventoryFragment : Fragment() {
@@ -21,7 +20,7 @@ class InventoryFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        (activity as AppCompatActivity).supportActionBar?.title = "Главное"
+        //(activity as AppCompatActivity).supportActionBar?.title = "Главное"
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_inventory, container, false)
 
