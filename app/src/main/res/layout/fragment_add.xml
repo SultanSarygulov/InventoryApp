@@ -8,16 +8,16 @@
     tools:context=".presentation.fragments.AddFragment">
 
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
+    <ImageButton
+        android:id="@+id/addImageButton"
+        android:layout_width="150dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="40dp"
         android:background="@color/myLightGray"
-        android:paddingLeft="47dp"
-        android:paddingTop="22dp"
-        android:paddingRight="47dp"
-        android:paddingBottom="22dp"
+        android:contentDescription="@string/image_btn_contentDesc"
+        android:cropToPadding="true"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:scaleType="fitCenter"
         android:src="@drawable/ic_img"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -34,7 +34,7 @@
         android:textColor="@color/myGray"
         android:textSize="12sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        app:layout_constraintTop_toBottomOf="@+id/addImageButton" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/goods_name"
@@ -92,7 +92,7 @@
             android:background="@android:color/transparent"
             android:fontFamily="@font/roboto"
             android:hint="Впишите цену товара"
-            android:inputType="text"
+            android:inputType="number"
             tools:ignore="TouchTargetSizeCheck" />
     </androidx.cardview.widget.CardView>
 
@@ -164,7 +164,7 @@
             android:background="@android:color/transparent"
             android:fontFamily="@font/roboto"
             android:hint="Количество товара"
-            android:inputType="text"
+            android:inputType="number"
             tools:ignore="TouchTargetSizeCheck" />
     </androidx.cardview.widget.CardView>
 

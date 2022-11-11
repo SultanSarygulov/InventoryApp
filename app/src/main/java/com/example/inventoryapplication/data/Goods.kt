@@ -1,5 +1,6 @@
 package com.example.inventoryapplication.data
 
+import android.graphics.Bitmap
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
@@ -10,5 +11,6 @@ data class Goods (
     val name: String,
     val cost: Int,
     val brand: String,
-    val amount: Int
+    val amount: Int,
+    val photo: Bitmap
 )

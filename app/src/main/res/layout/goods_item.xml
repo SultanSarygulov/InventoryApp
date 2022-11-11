@@ -15,7 +15,7 @@
         android:layout_height="match_parent">
 
         <ImageView
-            android:id="@+id/goods_img"
+            android:id="@+id/image"
             android:layout_width="0dp"
             android:layout_height="86dp"
             android:layout_marginStart="16dp"
@@ -35,8 +35,8 @@
             android:fontFamily="@font/open_sans_bold"
             android:text="Air Jordan"
             android:textColor="@color/black"
-            app:layout_constraintStart_toStartOf="@+id/goods_img"
-            app:layout_constraintTop_toBottomOf="@+id/goods_img"
+            app:layout_constraintStart_toStartOf="@+id/image"
+            app:layout_constraintTop_toBottomOf="@+id/image"
             tools:text="Air Jordan" />
 
         <TextView
@@ -47,7 +47,7 @@
             android:text="$ 1500.00"
             android:textColor="@color/myCyan"
             android:textSize="18sp"
-            app:layout_constraintStart_toStartOf="@+id/goods_img"
+            app:layout_constraintStart_toStartOf="@+id/image"
             app:layout_constraintTop_toBottomOf="@+id/name"
             tools:text="$ 1500.00" />
 
@@ -58,7 +58,7 @@
             android:fontFamily="@font/open_sans_bold"
             android:text="Nike"
             android:textColor="@color/myGray"
-            app:layout_constraintStart_toStartOf="@+id/goods_img"
+            app:layout_constraintStart_toStartOf="@+id/image"
             app:layout_constraintTop_toBottomOf="@+id/cost" />
 
         <TextView
@@ -68,7 +68,7 @@
             android:fontFamily="@font/open_sans_bold"
             android:text="150 шт"
             android:textColor="@color/myGray"
-            app:layout_constraintStart_toStartOf="@+id/goods_img"
+            app:layout_constraintStart_toStartOf="@+id/image"
             app:layout_constraintTop_toBottomOf="@+id/brand" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 

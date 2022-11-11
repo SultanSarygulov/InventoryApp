@@ -1,8 +1,11 @@
 package com.example.inventoryapplication.presentation
 
+import android.app.Application
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import coil.load
+import com.bumptech.glide.Glide
 import com.example.inventoryapplication.data.Goods
 import com.example.inventoryapplication.databinding.GoodsItemBinding
 
@@ -26,6 +29,7 @@ class RecyclerAdapter: RecyclerView.Adapter<RecyclerAdapter.ViewHolder>() {
             cost.text = "$ ${currentGoods.cost}"
             brand.text = currentGoods.brand
             amount.text = "${currentGoods.amount} шт"
+            image.load(currentGoods.photo)
         }
     }
 

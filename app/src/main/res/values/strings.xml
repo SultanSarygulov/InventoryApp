@@ -8,4 +8,5 @@
     <string name="search_hint">Поиск</string>
     <string name="main_bottomnav">Главное</string>
     <string name="archive_bottomnav">Архив</string>
+    <string name="image_btn_contentDesc">Add Image</string>
 </resources>
