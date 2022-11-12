@@ -22,7 +22,7 @@ class InventoryFragment : Fragment(), SearchView.OnQueryTextListener {
 
     private lateinit var mGoodsViewModel: GoodsViewModel
     private lateinit var binding: FragmentInventoryBinding
-    private val adapter = RecyclerAdapter()
+    private val adapter = RecyclerAdapter(this)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

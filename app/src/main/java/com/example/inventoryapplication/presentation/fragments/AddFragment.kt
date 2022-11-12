@@ -38,7 +38,7 @@ class AddFragment : Fragment() {
     private lateinit var mGoodsViewModel: GoodsViewModel
 
     companion object{
-        val IMAGE_REQUEST_CODE = 100
+        const val IMAGE_REQUEST_CODE = 100
     }
 
     override fun onCreateView(
@@ -117,18 +117,14 @@ class AddFragment : Fragment() {
         } else {
             Toast.makeText(requireContext(), "Please, fill out all fields", Toast.LENGTH_LONG).show()
         }
-
-
     }
     // Check if the user inputted info
     private fun inputCheck(name: String, cost: String, brand: String, amount: String): Boolean {
         return (
                 !TextUtils.isEmpty(name) &&
-                !TextUtils.isEmpty(cost) &&
-                !TextUtils.isEmpty(brand) &&
-                !TextUtils.isEmpty(amount)
+                        !TextUtils.isEmpty(cost) &&
+                        !TextUtils.isEmpty(brand) &&
+                        !TextUtils.isEmpty(amount)
                 )
     }
-
-
 }

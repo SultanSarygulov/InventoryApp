@@ -27,6 +27,12 @@ class GoodsViewModel(application: Application): AndroidViewModel(application) {
         }
     }
 
+    fun deleteGoods(goods: Goods){
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.deleteGoods(goods)
+        }
+    }
+
     fun searchData(searchQuery: String): LiveData<List<Goods>>{
         return repository.searchData(searchQuery)
     }
