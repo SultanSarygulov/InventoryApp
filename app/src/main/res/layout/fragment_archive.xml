@@ -6,54 +6,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".presentation.fragments.ArchiveFragment">
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/search_card"
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/search_bar"
+        android:background="@color/myLightGray"
         android:layout_width="240dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="24dp"
-        app:cardCornerRadius="100dp"
+        app:queryHint="@string/search_hint"
+        app:iconifiedByDefault="false"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <LinearLayout
-            android:id="@+id/search_layout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/myLightGray"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:id="@+id/search_icon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="15dp"
-                android:layout_marginBottom="15dp"
-                android:src="@drawable/ic_search"
-                app:tint="@color/myBlue"
-                android:contentDescription="@string/search_icon_contentDesc"/>
-
-            <EditText
-                android:id="@+id/search_txt"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="24dp"
-                android:autofillHints=""
-                android:background="@android:color/transparent"
-                android:fontFamily="@font/roboto_bold"
-                android:hint="@string/search_hint"
-                android:inputType="text"
-                android:textColor="@color/black"
-                android:textColorHint="@color/myGray"
-                tools:ignore="TextContrastCheck" />
-
-        </LinearLayout>
-
-    </androidx.cardview.widget.CardView>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerview"
@@ -65,7 +28,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/search_card" />
+        app:layout_constraintTop_toBottomOf="@+id/search_bar" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/addButton"

@@ -39,8 +39,8 @@ class InventoryFragment : Fragment(), SearchView.OnQueryTextListener {
             Navigation.findNavController(binding.root).navigate(R.id.action_inventoryFragment_to_addFragment)
         }
 
-        binding.searchTxt.isSubmitButtonEnabled = true
-        binding.searchTxt.setOnQueryTextListener(this)
+        binding.searchBar.isSubmitButtonEnabled = true
+        binding.searchBar.setOnQueryTextListener(this)
 
 
         mGoodsViewModel = ViewModelProvider(this).get(GoodsViewModel::class.java)
@@ -67,10 +67,10 @@ class InventoryFragment : Fragment(), SearchView.OnQueryTextListener {
     private fun searchData(query: String){
         val searchQuery = "%$query%"
 
-        mGoodsViewModel.searchData(searchQuery).observe(this, {list ->
-            list.let{
+        mGoodsViewModel.searchData(searchQuery).observe(this) { list ->
+            list.let {
                 adapter.setData(it)
             }
-        })
+        }
     }
 }
