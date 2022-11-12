@@ -27,4 +27,8 @@ class GoodsViewModel(application: Application): AndroidViewModel(application) {
         }
     }
 
+    fun searchData(searchQuery: String): LiveData<List<Goods>>{
+        return repository.searchData(searchQuery)
+    }
+
 }
