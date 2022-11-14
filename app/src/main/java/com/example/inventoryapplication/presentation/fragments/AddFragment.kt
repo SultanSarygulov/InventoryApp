@@ -1,6 +1,7 @@
 package com.example.inventoryapplication.presentation.fragments
 
 import android.app.Activity.RESULT_OK
+import android.app.AlertDialog
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
@@ -62,7 +63,7 @@ class AddFragment : Fragment() {
 
 
         binding.addBtn.setOnClickListener {
-            addToDatabase()
+            addGoods()
         }
 
 
@@ -97,7 +98,7 @@ class AddFragment : Fragment() {
         return (result as BitmapDrawable).bitmap
     }
 
-    private fun addToDatabase() {
+    private fun addGoods() {
         val name = binding.goodsNameEdit.text.toString()
         val cost = binding.goodsCostEdit.text.toString()
         val brand = binding.goodsBrandEdit.text.toString()
@@ -108,16 +109,28 @@ class AddFragment : Fragment() {
             lifecycleScope.launch{
                 // Create Goods
                 val goods = Goods(0, name, Integer.parseInt(cost), brand, Integer.parseInt(amount), getBitmap(photo))
-                // use add function from viewmodel
-                mGoodsViewModel.addGoods(goods)
-                Toast.makeText(requireContext(), "Successfully added!", Toast.LENGTH_LONG).show()
-                // Navigate back
-                findNavController().navigate(R.id.action_addFragment_to_inventoryFragment)
+                addToDatabase(goods)
             }
         } else {
             Toast.makeText(requireContext(), "Please, fill out all fields", Toast.LENGTH_LONG).show()
         }
     }
+
+    private fun addToDatabase(goods: Goods) {
+        val builder = AlertDialog.Builder(requireContext())
+        builder.setPositiveButton("Yes"){ _,_ ->
+            mGoodsViewModel.addGoods(goods)
+            Toast.makeText(requireContext(), "Successfully added!", Toast.LENGTH_LONG).show()
+            // Navigate back
+            findNavController().navigate(R.id.action_addFragment_to_inventoryFragment)
+        }
+        builder.setNegativeButton("No"){_, _ ->
+
+        }
+        builder.setTitle("Добавить ${goods.name} в инвентарь?")
+        builder.create().show()
+    }
+
     // Check if the user inputted info
     private fun inputCheck(name: String, cost: String, brand: String, amount: String): Boolean {
         return (

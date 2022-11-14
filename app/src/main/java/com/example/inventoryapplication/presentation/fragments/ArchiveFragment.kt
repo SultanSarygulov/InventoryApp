@@ -14,7 +14,6 @@ class ArchiveFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        //(activity as AppCompatActivity).supportActionBar?.title = "Архив"
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_archive, container, false)
 
