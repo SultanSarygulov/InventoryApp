@@ -18,4 +18,11 @@ data class Goods(
     val amount: Int,
     val photo: Bitmap,
     var archived: Boolean
-): Parcelable
+): Parcelable//{
+//    fun archive(archived: Boolean): Goods{
+//        this.archived = archived
+//        return this
+//    }
+
+
+//}

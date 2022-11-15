@@ -55,11 +55,12 @@ class RecyclerAdapter(private val viewModelStoreOwner: ViewModelStoreOwner): Rec
                 popup.setOnMenuItemClickListener(PopupMenu.OnMenuItemClickListener { it ->
                     when (it.itemId) {
                         R.id.delete_item -> {
-                            deleteGoods(root.context, currentGoods, holder.mGoodsViewModel)
+                            deleteGoods(holder, currentGoods)
                         }
                         R.id.archive_item -> {
-                            val action = InventoryFragmentDirections.actionInventoryFragmentToEditFragment(currentGoods)
-                            holder.binding.root.findNavController().navigate(action)
+                            archiveGoods(holder, currentGoods)
+//                           val action = InventoryFragmentDirections.actionInventoryFragmentToEditFragment(currentGoods)
+//                           holder.binding.root.findNavController().navigate(action)
                         }
                     }
                     true
@@ -70,10 +71,28 @@ class RecyclerAdapter(private val viewModelStoreOwner: ViewModelStoreOwner): Rec
         }
     }
 
-    private fun deleteGoods(context: Context, currentGoods: Goods, mGoodsViewModel: GoodsViewModel) {
-       val builder = AlertDialog.Builder(context)
+    private fun archiveGoods(holder: ViewHolder, currentGoods: Goods ) {
+
+        val archivedTrue = true
+
+        val archivedGoods = Goods(
+            currentGoods.id,
+            currentGoods.name,
+            currentGoods.cost,
+            currentGoods.brand,
+            currentGoods.amount,
+            currentGoods.photo,
+            archivedTrue)
+
+        holder.mGoodsViewModel.updateGoods(archivedGoods)
+        Toast.makeText(holder.binding.root.context, "'${currentGoods.name}' архивирован!", Toast.LENGTH_LONG)
+    }
+
+    private fun deleteGoods(holder: ViewHolder, currentGoods: Goods ) {
+        val context = holder.binding.root.context
+        val builder = AlertDialog.Builder(context)
         builder.setPositiveButton("Yes"){_, _ ->
-            mGoodsViewModel.deleteGoods(currentGoods)
+            holder.mGoodsViewModel.deleteGoods(currentGoods)
             Toast.makeText(context, "Succesfully deleted!", Toast.LENGTH_LONG)
         }
         builder.setNegativeButton("No"){ _, _ ->
