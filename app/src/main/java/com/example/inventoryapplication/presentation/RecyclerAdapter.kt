@@ -9,15 +9,18 @@ import android.view.ViewGroup
 import android.widget.PopupMenu
 import android.widget.Toast
 import androidx.core.content.ContentProviderCompat.requireContext
+import androidx.fragment.app.ListFragment
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStoreOwner
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.bumptech.glide.Glide
 import com.example.inventoryapplication.R
 import com.example.inventoryapplication.data.Goods
 import com.example.inventoryapplication.databinding.GoodsItemBinding
+import com.example.inventoryapplication.presentation.fragments.InventoryFragmentDirections
 
 class RecyclerAdapter(private val viewModelStoreOwner: ViewModelStoreOwner): RecyclerView.Adapter<RecyclerAdapter.ViewHolder>() {
 
@@ -35,7 +38,7 @@ class RecyclerAdapter(private val viewModelStoreOwner: ViewModelStoreOwner): Rec
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
-        val currentGoods = goodsList[position]
+        var currentGoods = goodsList[position]
         with(holder.binding) {
             name.text = currentGoods.name
             cost.text = "$ ${currentGoods.cost}"
@@ -55,11 +58,8 @@ class RecyclerAdapter(private val viewModelStoreOwner: ViewModelStoreOwner): Rec
                             deleteGoods(root.context, currentGoods, holder.mGoodsViewModel)
                         }
                         R.id.archive_item -> {
-                            Toast.makeText(
-                                popupMenu.context,
-                                "Can't archive yet",
-                                Toast.LENGTH_SHORT
-                            ).show()
+                            val action = InventoryFragmentDirections.actionInventoryFragmentToEditFragment(currentGoods)
+                            holder.binding.root.findNavController().navigate(action)
                         }
                     }
                     true
@@ -70,16 +70,16 @@ class RecyclerAdapter(private val viewModelStoreOwner: ViewModelStoreOwner): Rec
         }
     }
 
-    private fun deleteGoods(context: Context, goods: Goods, mGoodsViewModel: GoodsViewModel) {
+    private fun deleteGoods(context: Context, currentGoods: Goods, mGoodsViewModel: GoodsViewModel) {
        val builder = AlertDialog.Builder(context)
         builder.setPositiveButton("Yes"){_, _ ->
-            mGoodsViewModel.deleteGoods(goods)
+            mGoodsViewModel.deleteGoods(currentGoods)
+            Toast.makeText(context, "Succesfully deleted!", Toast.LENGTH_LONG)
         }
         builder.setNegativeButton("No"){ _, _ ->
 
         }
-        builder.setTitle("Delete ${goods.name}?")
-        builder.setMessage("Are you sure you want to delete ${goods.name}?")
+        builder.setTitle("Удалить ${currentGoods.name}?")
         builder.create().show()
 
     }

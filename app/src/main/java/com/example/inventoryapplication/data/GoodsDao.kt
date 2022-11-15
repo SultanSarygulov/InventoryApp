@@ -12,7 +12,10 @@ interface GoodsDao {
     @Delete
     suspend fun deleteGoods(goods: Goods)
 
-    @Query("SELECT * FROM goods_table ORDER BY id ASC")
+    @Update
+    suspend fun updateUser(goods: Goods)
+
+    @Query("SELECT * FROM goods_table WHERE archived = 0 ORDER BY id ASC")
     fun readAllData(): LiveData<List<Goods>>
 
     @Query("SELECT * FROM goods_table WHERE name LIKE :searchQuery OR brand LIKE :searchQuery ")

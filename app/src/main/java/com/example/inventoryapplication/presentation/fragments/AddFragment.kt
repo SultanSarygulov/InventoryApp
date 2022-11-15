@@ -14,12 +14,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.viewModelScope
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import coil.ImageLoader
@@ -29,9 +26,7 @@ import com.example.inventoryapplication.R
 import com.example.inventoryapplication.data.Goods
 import com.example.inventoryapplication.databinding.FragmentAddBinding
 import com.example.inventoryapplication.presentation.GoodsViewModel
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import java.net.URI
 
 class AddFragment : Fragment() {
 
@@ -108,7 +103,7 @@ class AddFragment : Fragment() {
         if(inputCheck(name, cost, brand, amount)){
             lifecycleScope.launch{
                 // Create Goods
-                val goods = Goods(0, name, Integer.parseInt(cost), brand, Integer.parseInt(amount), getBitmap(photo))
+                val goods = Goods(0, name, Integer.parseInt(cost), brand, Integer.parseInt(amount), getBitmap(photo), false)
                 addToDatabase(goods)
             }
         } else {

@@ -16,6 +16,9 @@
         <action
             android:id="@+id/action_inventoryFragment_to_archiveFragment"
             app:destination="@id/archiveFragment" />
+        <action
+            android:id="@+id/action_inventoryFragment_to_editFragment"
+            app:destination="@id/editFragment" />
     </fragment>
     <fragment
         android:id="@+id/addFragment"
@@ -35,5 +38,17 @@
         <action
             android:id="@+id/action_archiveFragment_to_inventoryFragment"
             app:destination="@id/inventoryFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/editFragment"
+        android:name="com.example.inventoryapplication.presentation.fragments.EditFragment"
+        android:label="Детали о товаре"
+        tools:layout="@layout/fragment_edit">
+        <action
+            android:id="@+id/action_editFragment_to_inventoryFragment"
+            app:destination="@id/inventoryFragment" />
+        <argument
+            android:name="currentGoods"
+            app:argType="com.example.inventoryapplication.data.Goods" />
     </fragment>
 </navigation>

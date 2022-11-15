@@ -18,4 +18,8 @@ class GoodsRepository(private val goodsDao: GoodsDao) {
     suspend fun deleteGoods(goods: Goods){
         goodsDao.deleteGoods(goods)
     }
+
+    suspend fun updateGoods(goods: Goods){
+        goodsDao.updateUser(goods)
+    }
 }

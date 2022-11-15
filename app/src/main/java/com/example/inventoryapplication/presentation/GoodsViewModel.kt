@@ -33,6 +33,12 @@ class GoodsViewModel(application: Application): AndroidViewModel(application) {
         }
     }
 
+    fun updateGoods(goods: Goods){
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.updateGoods(goods)
+        }
+    }
+
     fun searchData(searchQuery: String): LiveData<List<Goods>>{
         return repository.searchData(searchQuery)
     }
