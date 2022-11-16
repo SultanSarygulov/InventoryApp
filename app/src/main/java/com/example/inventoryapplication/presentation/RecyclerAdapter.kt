@@ -59,9 +59,9 @@ class RecyclerAdapter(private val viewModelStoreOwner: ViewModelStoreOwner, priv
                             deleteGoods(holder, currentGoods)
                         }
                         R.id.archive_item -> {
-                            archiveGoods(holder, currentGoods)
-//                           val action = InventoryFragmentDirections.actionInventoryFragmentToEditFragment(currentGoods)
-//                           holder.binding.root.findNavController().navigate(action)
+                            //archiveGoods(holder, currentGoods)
+                            val action = InventoryFragmentDirections.actionInventoryFragmentToEditFragment(currentGoods)
+                            holder.binding.root.findNavController().navigate(action)
                         }
                     }
                     true
@@ -100,8 +100,7 @@ class RecyclerAdapter(private val viewModelStoreOwner: ViewModelStoreOwner, priv
         val context = holder.binding.root.context
         val builder = AlertDialog.Builder(context)
         builder.setPositiveButton("Yes"){_, _ ->
-            //Toast.makeText(context, "Succesfully deleted!", Toast.LENGTH_LONG)
-            Toast.makeText(context, "${goodsList.size}", Toast.LENGTH_LONG).show()
+            Toast.makeText(context, "Succesfully deleted!", Toast.LENGTH_LONG)
             holder.mGoodsViewModel.deleteGoods(currentGoods)
         }
         builder.setNegativeButton("No"){ _, _ ->    }
@@ -111,11 +110,7 @@ class RecyclerAdapter(private val viewModelStoreOwner: ViewModelStoreOwner, priv
     }
 
     fun setData(goods: List<Goods>, context: Context){
-
-        var readAllDataGoods = goods
-
         this.goodsList = goods
-        Toast.makeText(context, "${goods}", Toast.LENGTH_LONG).show()
         notifyDataSetChanged()
     }
 

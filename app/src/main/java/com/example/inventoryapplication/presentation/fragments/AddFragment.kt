@@ -15,6 +15,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.view.drawToBitmap
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.Navigation
@@ -77,7 +78,6 @@ class AddFragment : Fragment() {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == IMAGE_REQUEST_CODE && resultCode == RESULT_OK){
             val imagePath: Uri? = data?.data
-            val imageBitmap = MediaStore.Images.Media.getBitmap(requireContext().contentResolver, imagePath);
             binding.addImageButton.setImageURI(imagePath)
         }
     }
@@ -98,12 +98,12 @@ class AddFragment : Fragment() {
         val cost = binding.goodsCostEdit.text.toString()
         val brand = binding.goodsBrandEdit.text.toString()
         val amount = binding.goodsAmountEdit.text.toString()
-        val photo = binding.addImageButton.getDrawable()
+        val photo = binding.addImageButton.drawToBitmap()
 
         if(inputCheck(name, cost, brand, amount)){
             lifecycleScope.launch{
                 // Create Goods
-                val goods = Goods(0, name, Integer.parseInt(cost), brand, Integer.parseInt(amount), getBitmap(photo), false)
+                val goods = Goods(0, name, Integer.parseInt(cost), brand, Integer.parseInt(amount), photo, false)
                 addToDatabase(goods)
             }
         } else {

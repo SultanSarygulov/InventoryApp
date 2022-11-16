@@ -1,5 +1,11 @@
 package com.example.inventoryapplication.presentation.fragments
 
+import android.app.Activity
+import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.drawable.BitmapDrawable
+import android.graphics.drawable.Drawable
+import android.net.Uri
 import android.os.Bundle
 import android.text.TextUtils
 import androidx.fragment.app.Fragment
@@ -7,10 +13,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.graphics.drawable.toBitmap
 import androidx.core.view.drawToBitmap
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import coil.ImageLoader
+import coil.request.ImageRequest
+import coil.request.SuccessResult
 import com.example.inventoryapplication.R
 import com.example.inventoryapplication.data.Goods
 import com.example.inventoryapplication.databinding.FragmentEditBinding
@@ -36,11 +46,29 @@ class EditFragment : Fragment() {
         binding.updateGoodsBrandEdit.setText(args.currentGoods.brand)
         binding.updateGoodsAmountEdit.setText(args.currentGoods.amount.toString())
 
+        binding.updateImageButton.setOnClickListener {
+            getImageFromGallery()
+        }
+
         binding.updateBtn.setOnClickListener {
             updateGoods()
         }
 
         return binding.root
+    }
+
+    private fun getImageFromGallery(){
+        val intent = Intent(Intent.ACTION_PICK)
+        intent.type = "image/*"
+        startActivityForResult(intent ,69)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == 69 && resultCode == Activity.RESULT_OK){
+            val imagePath: Uri? = data?.data
+            binding.updateImageButton.setImageURI(imagePath)
+        }
     }
 
     private fun updateGoods() {
@@ -59,6 +87,7 @@ class EditFragment : Fragment() {
             Toast.makeText(requireContext(), "Заполните все поля!", Toast.LENGTH_LONG).show()
         }
     }
+
     private fun inputCheck(name: String, cost: String, brand: String, amount: String): Boolean {
         return (
                 !TextUtils.isEmpty(name) &&
