@@ -22,7 +22,7 @@ class InventoryFragment : Fragment(), SearchView.OnQueryTextListener {
 
     private lateinit var mGoodsViewModel: GoodsViewModel
     private lateinit var binding: FragmentInventoryBinding
-    private val adapter = RecyclerAdapter(this)
+    private lateinit var adapter: RecyclerAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -30,9 +30,10 @@ class InventoryFragment : Fragment(), SearchView.OnQueryTextListener {
     ): View? {
         //(activity as AppCompatActivity).supportActionBar?.title = "Главное"
         // Inflate the layout for this fragment
-        binding = FragmentInventoryBinding.inflate(layoutInflater, container, false)
+        binding = FragmentInventoryBinding.inflate(inflater, container, false)
 
         binding.recyclerview.layoutManager = GridLayoutManager(this.context, 2)
+        adapter = RecyclerAdapter(this, viewLifecycleOwner)
         binding.recyclerview.adapter = adapter
 
         binding.addButton.setOnClickListener {
@@ -44,11 +45,9 @@ class InventoryFragment : Fragment(), SearchView.OnQueryTextListener {
 
 
         mGoodsViewModel = ViewModelProvider(this).get(GoodsViewModel::class.java)
-        mGoodsViewModel.readAllData.observe(viewLifecycleOwner, Observer{goods ->
-            adapter.setData(goods)
-        })
-
-
+        mGoodsViewModel.readAllData.observe(viewLifecycleOwner) { goods ->
+            adapter.setData(goods, requireContext())
+        }
 
         return binding.root
     }
@@ -69,7 +68,7 @@ class InventoryFragment : Fragment(), SearchView.OnQueryTextListener {
 
         mGoodsViewModel.searchData(searchQuery).observe(this) { list ->
             list.let {
-                adapter.setData(it)
+                adapter.setData(it, requireContext())
             }
         }
     }

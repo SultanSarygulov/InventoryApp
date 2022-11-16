@@ -22,11 +22,12 @@ import com.example.inventoryapplication.data.Goods
 import com.example.inventoryapplication.databinding.GoodsItemBinding
 import com.example.inventoryapplication.presentation.fragments.InventoryFragmentDirections
 
-class RecyclerAdapter(private val viewModelStoreOwner: ViewModelStoreOwner): RecyclerView.Adapter<RecyclerAdapter.ViewHolder>() {
+class RecyclerAdapter(private val viewModelStoreOwner: ViewModelStoreOwner, private val lifecycleOwner: LifecycleOwner): RecyclerView.Adapter<RecyclerAdapter.ViewHolder>() {
 
     private var goodsList = emptyList<Goods>()
 
-    inner class ViewHolder(val binding: GoodsItemBinding, val mGoodsViewModel: GoodsViewModel): RecyclerView.ViewHolder(binding.root)
+    class ViewHolder(val binding: GoodsItemBinding, val mGoodsViewModel: GoodsViewModel):
+        RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         //val view = LayoutInflater.from(parent.context).inflate(R.layout.goods_item, parent, false)
@@ -71,7 +72,8 @@ class RecyclerAdapter(private val viewModelStoreOwner: ViewModelStoreOwner): Rec
         }
     }
 
-    private fun archiveGoods(holder: ViewHolder, currentGoods: Goods ) {
+    private fun archiveGoods(holder: ViewHolder, currentGoods: Goods) {
+        val context = holder.binding.root.context
 
         val archivedTrue = true
 
@@ -84,27 +86,36 @@ class RecyclerAdapter(private val viewModelStoreOwner: ViewModelStoreOwner): Rec
             currentGoods.photo,
             archivedTrue)
 
+        //goodsList.drop(goodsList.indexOf(currentGoods))
+
         holder.mGoodsViewModel.updateGoods(archivedGoods)
-        Toast.makeText(holder.binding.root.context, "'${currentGoods.name}' архивирован!", Toast.LENGTH_LONG)
+        holder.mGoodsViewModel.readAllData.observe(lifecycleOwner){goods ->
+            goods.drop(goods.indexOf(currentGoods))
+        }
+        notifyDataSetChanged()
+        Toast.makeText(context, "'${currentGoods.name}' архивирован!", Toast.LENGTH_LONG).show()
     }
 
     private fun deleteGoods(holder: ViewHolder, currentGoods: Goods ) {
         val context = holder.binding.root.context
         val builder = AlertDialog.Builder(context)
         builder.setPositiveButton("Yes"){_, _ ->
+            //Toast.makeText(context, "Succesfully deleted!", Toast.LENGTH_LONG)
+            Toast.makeText(context, "${goodsList.size}", Toast.LENGTH_LONG).show()
             holder.mGoodsViewModel.deleteGoods(currentGoods)
-            Toast.makeText(context, "Succesfully deleted!", Toast.LENGTH_LONG)
         }
-        builder.setNegativeButton("No"){ _, _ ->
-
-        }
+        builder.setNegativeButton("No"){ _, _ ->    }
         builder.setTitle("Удалить ${currentGoods.name}?")
         builder.create().show()
 
     }
 
-    fun setData(goods: List<Goods>){
+    fun setData(goods: List<Goods>, context: Context){
+
+        var readAllDataGoods = goods
+
         this.goodsList = goods
+        Toast.makeText(context, "${goods}", Toast.LENGTH_LONG).show()
         notifyDataSetChanged()
     }
 

@@ -12,13 +12,15 @@ import kotlinx.coroutines.launch
 
 class GoodsViewModel(application: Application): AndroidViewModel(application) {
 
-    val readAllData: LiveData<List<Goods>>
+    var readAllData: LiveData<List<Goods>>
+    var readArchivedData: LiveData<List<Goods>>
     private val repository: GoodsRepository
 
     init {
         val goodsDao = GoodsDatabase.getDatabase(application).goodsDao()
         repository = GoodsRepository(goodsDao)
         readAllData = repository.readAllData
+        readArchivedData = repository.readArchivedData
     }
 
     fun addGoods(goods: Goods){

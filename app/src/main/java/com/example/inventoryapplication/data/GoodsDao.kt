@@ -18,6 +18,9 @@ interface GoodsDao {
     @Query("SELECT * FROM goods_table WHERE archived = 0 ORDER BY id ASC")
     fun readAllData(): LiveData<List<Goods>>
 
+    @Query("SELECT * FROM goods_table WHERE archived = 1 ORDER BY id ASC")
+    fun readArchivedData(): LiveData<List<Goods>>
+
     @Query("SELECT * FROM goods_table WHERE name LIKE :searchQuery OR brand LIKE :searchQuery ")
     fun searchData(searchQuery: String): LiveData<List<Goods>>
 }
