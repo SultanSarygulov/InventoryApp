@@ -8,7 +8,6 @@ import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Bundle
-import android.provider.MediaStore
 import android.text.TextUtils
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -26,13 +25,13 @@ import coil.request.SuccessResult
 import com.example.inventoryapplication.R
 import com.example.inventoryapplication.data.Goods
 import com.example.inventoryapplication.databinding.FragmentAddBinding
-import com.example.inventoryapplication.presentation.GoodsViewModel
+import com.example.inventoryapplication.presentation.InventoryViewModel
 import kotlinx.coroutines.launch
 
 class AddFragment : Fragment() {
 
     private lateinit var binding: FragmentAddBinding
-    private lateinit var mGoodsViewModel: GoodsViewModel
+    private lateinit var mInventoryViewModel: InventoryViewModel
 
     companion object{
         const val IMAGE_REQUEST_CODE = 100
@@ -45,7 +44,7 @@ class AddFragment : Fragment() {
         //(activity as AppCompatActivity).supportActionBar?.title = "Добавить товар"
         // Inflate the layout for this fragment
 
-        mGoodsViewModel = ViewModelProvider(this).get(GoodsViewModel::class.java)
+        mInventoryViewModel = ViewModelProvider(this).get(InventoryViewModel::class.java)
 
         binding = FragmentAddBinding.inflate(inflater, container, false)
 
@@ -114,7 +113,7 @@ class AddFragment : Fragment() {
     private fun addToDatabase(goods: Goods) {
         val builder = AlertDialog.Builder(requireContext())
         builder.setPositiveButton("Yes"){ _,_ ->
-            mGoodsViewModel.addGoods(goods)
+            mInventoryViewModel.addGoods(goods)
             Toast.makeText(requireContext(), "Successfully added!", Toast.LENGTH_LONG).show()
             // Navigate back
             findNavController().navigate(R.id.action_addFragment_to_inventoryFragment)

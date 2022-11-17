@@ -2,9 +2,6 @@ package com.example.inventoryapplication.presentation.fragments
 
 import android.app.Activity
 import android.content.Intent
-import android.graphics.Bitmap
-import android.graphics.drawable.BitmapDrawable
-import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Bundle
 import android.text.TextUtils
@@ -13,23 +10,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.graphics.drawable.toBitmap
 import androidx.core.view.drawToBitmap
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import coil.ImageLoader
-import coil.request.ImageRequest
-import coil.request.SuccessResult
 import com.example.inventoryapplication.R
 import com.example.inventoryapplication.data.Goods
 import com.example.inventoryapplication.databinding.FragmentEditBinding
-import com.example.inventoryapplication.presentation.GoodsViewModel
+import com.example.inventoryapplication.presentation.InventoryViewModel
 
 class EditFragment : Fragment() {
 
     private lateinit var binding: FragmentEditBinding
-    private lateinit var mGoodsViewModel: GoodsViewModel
+    private lateinit var mInventoryViewModel: InventoryViewModel
     private val args by navArgs<EditFragmentArgs>()
 
     override fun onCreateView(
@@ -38,7 +31,7 @@ class EditFragment : Fragment() {
     ): View? {
         binding = FragmentEditBinding.inflate(layoutInflater, container, false)
 
-        mGoodsViewModel = ViewModelProvider(this).get(GoodsViewModel::class.java)
+        mInventoryViewModel = ViewModelProvider(this).get(InventoryViewModel::class.java)
 
         binding.updateImageButton.setImageBitmap(args.currentGoods.photo)
         binding.updateGoodsNameEdit.setText(args.currentGoods.name)
@@ -80,7 +73,7 @@ class EditFragment : Fragment() {
 
         if (inputCheck(name, cost, brand, amount)){
             val updatedGoods: Goods = Goods(args.currentGoods.id, name, Integer.parseInt(cost), brand, Integer.parseInt(amount), image, false)
-            mGoodsViewModel.updateGoods(updatedGoods)
+            mInventoryViewModel.updateGoods(updatedGoods)
             Toast.makeText(requireContext(), "Изменения сохранены!", Toast.LENGTH_LONG).show()
             findNavController().navigate(R.id.action_editFragment_to_inventoryFragment)
         } else {

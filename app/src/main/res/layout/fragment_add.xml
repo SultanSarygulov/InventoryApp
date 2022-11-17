@@ -12,8 +12,6 @@
     tools:context=".presentation.fragments.AddFragment">
 
 
-
-
     <ImageButton
         android:id="@+id/addImageButton"
         android:layout_width="150dp"

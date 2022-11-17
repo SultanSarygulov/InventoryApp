@@ -10,17 +10,15 @@ import com.example.inventoryapplication.data.GoodsRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class GoodsViewModel(application: Application): AndroidViewModel(application) {
+class InventoryViewModel(application: Application): AndroidViewModel(application) {
 
     var readAllData: LiveData<MutableList<Goods>>
-    var readArchivedData: LiveData<MutableList<Goods>>
     private val repository: GoodsRepository
 
     init {
         val goodsDao = GoodsDatabase.getDatabase(application).goodsDao()
         repository = GoodsRepository(goodsDao)
         readAllData = repository.readAllData
-        readArchivedData = repository.readArchivedData
     }
 
     fun addGoods(goods: Goods){

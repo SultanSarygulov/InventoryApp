@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.inventoryapplication.R
 import com.example.inventoryapplication.data.Goods
-import com.example.inventoryapplication.databinding.FragmentArchiveBinding
 import com.example.inventoryapplication.databinding.GoodsItemBinding
 
 class ArchiveAdapter(private val viewModelStoreOwner: ViewModelStoreOwner):
@@ -17,14 +16,14 @@ class ArchiveAdapter(private val viewModelStoreOwner: ViewModelStoreOwner):
 
     private var goodsList = emptyList<Goods>()
 
-    inner class ArchiveViewHolder(val binding: GoodsItemBinding, val mGoodsViewModel: GoodsViewModel):
+    inner class ArchiveViewHolder(val binding: GoodsItemBinding, val mInventoryViewModel: InventoryViewModel):
         RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ArchiveViewHolder {
         val binding = GoodsItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        val mGoodsViewModel = ViewModelProvider(viewModelStoreOwner).get(GoodsViewModel::class.java)
+        val mInventoryViewModel = ViewModelProvider(viewModelStoreOwner).get(InventoryViewModel::class.java)
 
-        return ArchiveViewHolder(binding, mGoodsViewModel)
+        return ArchiveViewHolder(binding, mInventoryViewModel)
     }
 
     override fun onBindViewHolder(holder: ArchiveViewHolder, position: Int) {
