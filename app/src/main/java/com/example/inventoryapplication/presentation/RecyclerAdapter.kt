@@ -59,9 +59,9 @@ class RecyclerAdapter(private val viewModelStoreOwner: ViewModelStoreOwner, priv
                             deleteGoods(holder, currentGoods)
                         }
                         R.id.archive_item -> {
-                            //archiveGoods(holder, currentGoods)
-                            val action = InventoryFragmentDirections.actionInventoryFragmentToEditFragment(currentGoods)
-                            holder.binding.root.findNavController().navigate(action)
+                            archiveGoods(holder, currentGoods)
+                            //val action = InventoryFragmentDirections.actionInventoryFragmentToEditFragment(currentGoods)
+                            //holder.binding.root.findNavController().navigate(action)
                         }
                     }
                     true
@@ -90,9 +90,11 @@ class RecyclerAdapter(private val viewModelStoreOwner: ViewModelStoreOwner, priv
 
         holder.mGoodsViewModel.updateGoods(archivedGoods)
         holder.mGoodsViewModel.readAllData.observe(lifecycleOwner){goods ->
-            goods.drop(goods.indexOf(currentGoods))
+            goods.remove(currentGoods)
         }
-        notifyDataSetChanged()
+        holder.mGoodsViewModel.readArchivedData.observe(lifecycleOwner){goods ->
+            goods.add(currentGoods)
+        }
         Toast.makeText(context, "'${currentGoods.name}' архивирован!", Toast.LENGTH_LONG).show()
     }
 
@@ -111,6 +113,7 @@ class RecyclerAdapter(private val viewModelStoreOwner: ViewModelStoreOwner, priv
 
     fun setData(goods: List<Goods>, context: Context){
         this.goodsList = goods
+        Toast.makeText(context, "GoodsList: ${goods}", Toast.LENGTH_LONG).show()
         notifyDataSetChanged()
     }
 

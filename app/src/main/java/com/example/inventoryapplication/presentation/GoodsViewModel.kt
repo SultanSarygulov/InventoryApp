@@ -12,8 +12,8 @@ import kotlinx.coroutines.launch
 
 class GoodsViewModel(application: Application): AndroidViewModel(application) {
 
-    var readAllData: LiveData<List<Goods>>
-    var readArchivedData: LiveData<List<Goods>>
+    var readAllData: LiveData<MutableList<Goods>>
+    var readArchivedData: LiveData<MutableList<Goods>>
     private val repository: GoodsRepository
 
     init {
@@ -41,7 +41,7 @@ class GoodsViewModel(application: Application): AndroidViewModel(application) {
         }
     }
 
-    fun searchData(searchQuery: String): LiveData<List<Goods>>{
+    fun searchData(searchQuery: String): LiveData<MutableList<Goods>>{
         return repository.searchData(searchQuery)
     }
 

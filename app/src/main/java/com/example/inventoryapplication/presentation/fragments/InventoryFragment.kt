@@ -45,8 +45,10 @@ class InventoryFragment : Fragment(), SearchView.OnQueryTextListener {
 
 
         mGoodsViewModel = ViewModelProvider(this).get(GoodsViewModel::class.java)
-        mGoodsViewModel.readAllData.observe(viewLifecycleOwner) { goods ->
-            adapter.setData(goods, requireContext())
+        mGoodsViewModel.readAllData.observe(viewLifecycleOwner) { list ->
+            list.let {
+                adapter.setData(it, requireContext())
+            }
         }
 
         return binding.root
