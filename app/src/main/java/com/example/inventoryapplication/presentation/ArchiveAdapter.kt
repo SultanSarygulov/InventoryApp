@@ -10,6 +10,7 @@ import com.bumptech.glide.Glide
 import com.example.inventoryapplication.R
 import com.example.inventoryapplication.data.Goods
 import com.example.inventoryapplication.databinding.GoodsItemBinding
+import com.example.inventoryapplication.presentation.inventory.InventoryViewModel
 
 class ArchiveAdapter(private val viewModelStoreOwner: ViewModelStoreOwner):
     RecyclerView.Adapter<ArchiveAdapter.ArchiveViewHolder>() {

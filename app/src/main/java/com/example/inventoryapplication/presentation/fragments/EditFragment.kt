@@ -17,7 +17,7 @@ import androidx.navigation.fragment.navArgs
 import com.example.inventoryapplication.R
 import com.example.inventoryapplication.data.Goods
 import com.example.inventoryapplication.databinding.FragmentEditBinding
-import com.example.inventoryapplication.presentation.InventoryViewModel
+import com.example.inventoryapplication.presentation.inventory.InventoryViewModel
 
 class EditFragment : Fragment() {
 

@@ -5,11 +5,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.inventoryapplication.databinding.FragmentArchiveBinding
 import com.example.inventoryapplication.presentation.ArchiveAdapter
-import com.example.inventoryapplication.presentation.InventoryViewModel
+import com.example.inventoryapplication.presentation.inventory.InventoryViewModel
 
 class ArchiveFragment : Fragment() {
 

@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/inventoryFragment"
-        android:name="com.example.inventoryapplication.presentation.fragments.InventoryFragment"
+        android:name="com.example.inventoryapplication.presentation.inventory.InventoryFragment"
         android:label="Главное"
         tools:layout="@layout/fragment_inventory" >
         <action

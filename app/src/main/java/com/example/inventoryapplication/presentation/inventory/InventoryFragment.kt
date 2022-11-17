@@ -1,4 +1,4 @@
-package com.example.inventoryapplication.presentation.fragments
+package com.example.inventoryapplication.presentation.inventory
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -11,14 +11,12 @@ import androidx.navigation.Navigation
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.inventoryapplication.R
 import com.example.inventoryapplication.databinding.FragmentInventoryBinding
-import com.example.inventoryapplication.presentation.InventoryViewModel
-import com.example.inventoryapplication.presentation.RecyclerAdapter
 
 class InventoryFragment : Fragment(), SearchView.OnQueryTextListener {
 
     private lateinit var mInventoryViewModel: InventoryViewModel
     private lateinit var binding: FragmentInventoryBinding
-    private lateinit var adapter: RecyclerAdapter
+    private lateinit var adapter: InventoryAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -30,7 +28,7 @@ class InventoryFragment : Fragment(), SearchView.OnQueryTextListener {
 
         // RecyclerView and connect it with Adapter
         binding.recyclerview.layoutManager = GridLayoutManager(this.context, 2)
-        adapter = RecyclerAdapter(this, viewLifecycleOwner)
+        adapter = InventoryAdapter(this, viewLifecycleOwner)
         binding.recyclerview.adapter = adapter
 
         // Navigate to Add fragment
@@ -46,7 +44,7 @@ class InventoryFragment : Fragment(), SearchView.OnQueryTextListener {
         mInventoryViewModel = ViewModelProvider(this).get(InventoryViewModel::class.java)
         mInventoryViewModel.readAllData.observe(viewLifecycleOwner) { list ->
             list.let {
-                adapter.differ.submitList(it)
+                adapter.submitList(it)
             }
         }
 
@@ -69,7 +67,7 @@ class InventoryFragment : Fragment(), SearchView.OnQueryTextListener {
 
         mInventoryViewModel.searchData(searchQuery).observe(this) { list ->
             list.let {
-                adapter.differ.submitList(it)
+                adapter.submitList(it)
             }
         }
     }

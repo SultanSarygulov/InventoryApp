@@ -1,4 +1,4 @@
-package com.example.inventoryapplication.presentation
+package com.example.inventoryapplication.presentation.inventory
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel

@@ -25,7 +25,7 @@ import coil.request.SuccessResult
 import com.example.inventoryapplication.R
 import com.example.inventoryapplication.data.Goods
 import com.example.inventoryapplication.databinding.FragmentAddBinding
-import com.example.inventoryapplication.presentation.InventoryViewModel
+import com.example.inventoryapplication.presentation.inventory.InventoryViewModel
 import kotlinx.coroutines.launch
 
 class AddFragment : Fragment() {
