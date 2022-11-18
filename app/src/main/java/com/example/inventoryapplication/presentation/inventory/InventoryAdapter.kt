@@ -2,6 +2,7 @@ package com.example.inventoryapplication.presentation.inventory
 
 import android.app.AlertDialog
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,24 +11,35 @@ import android.widget.Toast
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStoreOwner
-import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.inventoryapplication.R
 import com.example.inventoryapplication.data.Goods
-import com.example.inventoryapplication.data.GoodsDiffUtilCallback
 import com.example.inventoryapplication.databinding.GoodsItemBinding
 import com.example.inventoryapplication.presentation.GoodsDiffCallback
+import com.example.inventoryapplication.presentation.GoodsDiffUtilCallback
 
-class InventoryAdapter(private val viewModelStoreOwner: ViewModelStoreOwner, private val lifecycleOwner: LifecycleOwner):
-    ListAdapter<Goods, InventoryAdapter.ViewHolder>(GoodsDiffCallback()) {
+class InventoryAdapter(private val viewModelStoreOwner: ViewModelStoreOwner):
+    RecyclerView.Adapter<InventoryAdapter.ViewHolder>(){
 
     lateinit var binding: GoodsItemBinding
     lateinit var mInventoryViewModel: InventoryViewModel
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+    private var goodsList = mutableListOf<Goods>()
+    fun setList(goodses: List<Goods>, context: Context){
+        val diffCallback = GoodsDiffUtilCallback(goodsList, goodses)
+        val diffResult = DiffUtil.calculateDiff(diffCallback)
+        goodsList.clear()
+        goodsList.addAll(goodses)
+        diffResult.dispatchUpdatesTo(this)
+        Log.d("InventoryAdapter","${goodsList}")
+    }
+
+    override fun getItemCount(): Int = goodsList.size
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): InventoryAdapter.ViewHolder {
         //val view = LayoutInflater.from(parent.context).inflate(R.layout.goods_item, parent, false)
         binding = GoodsItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         mInventoryViewModel = ViewModelProvider(viewModelStoreOwner).get(InventoryViewModel::class.java)
@@ -35,9 +47,9 @@ class InventoryAdapter(private val viewModelStoreOwner: ViewModelStoreOwner, pri
         return InventoryAdapter.ViewHolder(binding.root)
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int)  {
+    override fun onBindViewHolder(holder: InventoryAdapter.ViewHolder, position: Int)  {
 
-        val currentGoods = getItem(position)
+        val currentGoods = goodsList[position]
 
         binding.apply {
             name.text = currentGoods.name
@@ -71,10 +83,7 @@ class InventoryAdapter(private val viewModelStoreOwner: ViewModelStoreOwner, pri
         }
     }
 
-
     class ViewHolder(itemView: View):RecyclerView.ViewHolder(itemView)
-
-
 
     private fun archiveGoods(context: Context, currentGoods: Goods, mInventoryViewModel: InventoryViewModel) {
         //val context = holder.binding.root.context

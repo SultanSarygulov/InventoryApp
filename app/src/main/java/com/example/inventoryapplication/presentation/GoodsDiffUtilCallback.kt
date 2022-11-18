@@ -1,6 +1,7 @@
-package com.example.inventoryapplication.data
+package com.example.inventoryapplication.presentation
 
 import androidx.recyclerview.widget.DiffUtil
+import com.example.inventoryapplication.data.Goods
 
 class GoodsDiffUtilCallback(
     private val oldList: List<Goods>,

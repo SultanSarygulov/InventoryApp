@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.example.inventoryapplication.R
 import com.example.inventoryapplication.databinding.FragmentInventoryBinding
 
-class InventoryFragment : Fragment(), SearchView.OnQueryTextListener {
+class InventoryFragment : Fragment()/*, SearchView.OnQueryTextListener*/ {
 
     private lateinit var mInventoryViewModel: InventoryViewModel
     private lateinit var binding: FragmentInventoryBinding
@@ -28,7 +28,7 @@ class InventoryFragment : Fragment(), SearchView.OnQueryTextListener {
 
         // RecyclerView and connect it with Adapter
         binding.recyclerview.layoutManager = GridLayoutManager(this.context, 2)
-        adapter = InventoryAdapter(this, viewLifecycleOwner)
+        adapter = InventoryAdapter(this)
         binding.recyclerview.adapter = adapter
 
         // Navigate to Add fragment
@@ -37,38 +37,38 @@ class InventoryFragment : Fragment(), SearchView.OnQueryTextListener {
         }
 
         // Set SearchBar
-        binding.searchBar.isSubmitButtonEnabled = true
-        binding.searchBar.setOnQueryTextListener(this)
+//        binding.searchBar.isSubmitButtonEnabled = true
+//        binding.searchBar.setOnQueryTextListener(this)
 
         // Set ViewModel
         mInventoryViewModel = ViewModelProvider(this).get(InventoryViewModel::class.java)
         mInventoryViewModel.readAllData.observe(viewLifecycleOwner) { list ->
             list.let {
-                adapter.submitList(it)
+                adapter.setList(it, requireContext())
             }
         }
 
         return binding.root
     }
 
-    override fun onQueryTextSubmit(query: String?): Boolean {
-        return true
-    }
+//    override fun onQueryTextSubmit(query: String?): Boolean {
+//        return true
+//    }
+//
+//    override fun onQueryTextChange(query: String?): Boolean {
+//        if (query != null){
+//            searchData(query)
+//        }
+//        return true
+//    }
 
-    override fun onQueryTextChange(query: String?): Boolean {
-        if (query != null){
-            searchData(query)
-        }
-        return true
-    }
-
-    private fun searchData(query: String){
-        val searchQuery = "%$query%"
-
-        mInventoryViewModel.searchData(searchQuery).observe(this) { list ->
-            list.let {
-                adapter.submitList(it)
-            }
-        }
-    }
+//    private fun searchData(query: String){
+//        val searchQuery = "%$query%"
+//
+//        mInventoryViewModel.searchData(searchQuery).observe(this) { list ->
+//            list.let {
+//                adapter.setList(it, requireContext())
+//            }
+//        }
+//    }
 }
