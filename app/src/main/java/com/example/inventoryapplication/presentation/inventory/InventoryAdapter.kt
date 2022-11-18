@@ -10,22 +10,21 @@ import android.widget.Toast
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStoreOwner
-import androidx.recyclerview.widget.AsyncListDiffer
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.inventoryapplication.R
 import com.example.inventoryapplication.data.Goods
-import com.example.inventoryapplication.data.GoodsDiffUtilCallback
 import com.example.inventoryapplication.databinding.GoodsItemBinding
 import com.example.inventoryapplication.presentation.GoodsDiffCallback
 
-class InventoryAdapter(private val viewModelStoreOwner: ViewModelStoreOwner, private val lifecycleOwner: LifecycleOwner):
+class InventoryAdapter(private val viewModelStoreOwner: ViewModelStoreOwner):
     ListAdapter<Goods, InventoryAdapter.ViewHolder>(GoodsDiffCallback()) {
 
     lateinit var binding: GoodsItemBinding
     lateinit var mInventoryViewModel: InventoryViewModel
+
+    class ViewHolder(itemView: View):RecyclerView.ViewHolder(itemView)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         //val view = LayoutInflater.from(parent.context).inflate(R.layout.goods_item, parent, false)
@@ -59,8 +58,6 @@ class InventoryAdapter(private val viewModelStoreOwner: ViewModelStoreOwner, pri
                         }
                         R.id.archive_item -> {
                             archiveGoods(binding.root.context, currentGoods, mInventoryViewModel)
-                            //val action = InventoryFragmentDirections.actionInventoryFragmentToEditFragment(currentGoods)
-                            //holder.binding.root.findNavController().navigate(action)
                         }
                     }
                     true
@@ -70,9 +67,6 @@ class InventoryAdapter(private val viewModelStoreOwner: ViewModelStoreOwner, pri
 
         }
     }
-
-
-    class ViewHolder(itemView: View):RecyclerView.ViewHolder(itemView)
 
 
 
@@ -91,9 +85,9 @@ class InventoryAdapter(private val viewModelStoreOwner: ViewModelStoreOwner, pri
                 archivedTrue)
 
             mInventoryViewModel.updateGoods(archivedGoods)
-            Toast.makeText(context, "'${currentGoods.name}' архивирован!", Toast.LENGTH_LONG).show()
+            Toast.makeText(context, "'${currentGoods.name}' архивирован!", Toast.LENGTH_SHORT).show()
         } else {
-            Toast.makeText(context, "'${currentGoods.name}' уже архивирован", Toast.LENGTH_LONG).show()
+            Toast.makeText(context, "'${currentGoods.name}' уже архивирован", Toast.LENGTH_SHORT).show()
         }
 
     }
@@ -102,7 +96,7 @@ class InventoryAdapter(private val viewModelStoreOwner: ViewModelStoreOwner, pri
         // context = holder.binding.root.context
         val builder = AlertDialog.Builder(context)
         builder.setPositiveButton("Yes"){_, _ ->
-            Toast.makeText(context, "Succesfully deleted!", Toast.LENGTH_LONG)
+            Toast.makeText(context, "Succesfully deleted!", Toast.LENGTH_SHORT)
             mInventoryViewModel.deleteGoods(currentGoods)
         }
         builder.setNegativeButton("No"){ _, _ ->    }

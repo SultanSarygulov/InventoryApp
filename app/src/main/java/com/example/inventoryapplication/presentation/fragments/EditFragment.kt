@@ -17,12 +17,13 @@ import androidx.navigation.fragment.navArgs
 import com.example.inventoryapplication.R
 import com.example.inventoryapplication.data.Goods
 import com.example.inventoryapplication.databinding.FragmentEditBinding
+import com.example.inventoryapplication.presentation.archive.ArchiveViewModel
 import com.example.inventoryapplication.presentation.inventory.InventoryViewModel
 
 class EditFragment : Fragment() {
 
     private lateinit var binding: FragmentEditBinding
-    private lateinit var mInventoryViewModel: InventoryViewModel
+    private lateinit var mArchiveViewModel: ArchiveViewModel
     private val args by navArgs<EditFragmentArgs>()
 
     override fun onCreateView(
@@ -31,7 +32,7 @@ class EditFragment : Fragment() {
     ): View? {
         binding = FragmentEditBinding.inflate(layoutInflater, container, false)
 
-        mInventoryViewModel = ViewModelProvider(this).get(InventoryViewModel::class.java)
+        mArchiveViewModel = ViewModelProvider(this).get(ArchiveViewModel::class.java)
 
         binding.updateImageButton.setImageBitmap(args.currentGoods.photo)
         binding.updateGoodsNameEdit.setText(args.currentGoods.name)
@@ -72,10 +73,10 @@ class EditFragment : Fragment() {
         val amount = binding.updateGoodsAmountEdit.text.toString()
 
         if (inputCheck(name, cost, brand, amount)){
-            val updatedGoods: Goods = Goods(args.currentGoods.id, name, Integer.parseInt(cost), brand, Integer.parseInt(amount), image, false)
-            mInventoryViewModel.updateGoods(updatedGoods)
+            val updatedGoods: Goods = Goods(args.currentGoods.id, name, Integer.parseInt(cost), brand, Integer.parseInt(amount), image, true)
+            mArchiveViewModel.updateGoods(updatedGoods)
             Toast.makeText(requireContext(), "Изменения сохранены!", Toast.LENGTH_LONG).show()
-            findNavController().navigate(R.id.action_editFragment_to_inventoryFragment)
+            findNavController().navigate(R.id.action_editFragment_to_archiveFragment)
         } else {
             Toast.makeText(requireContext(), "Заполните все поля!", Toast.LENGTH_LONG).show()
         }
