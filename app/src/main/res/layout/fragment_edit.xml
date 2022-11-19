@@ -17,15 +17,15 @@
         android:layout_width="150dp"
         android:layout_height="100dp"
         android:layout_marginTop="40dp"
-        android:background="@color/myLightGray"
+        android:background="@drawable/round_corners_shape"
         android:contentDescription="@string/image_btn_contentDesc"
         android:cropToPadding="true"
         android:foreground="?android:attr/selectableItemBackground"
-        android:scaleType="fitCenter"
-        android:src="@drawable/ic_img"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_image"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <TextView
         android:id="@+id/update_goods_name_txt"
@@ -46,6 +46,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:background="@color/myLightGray"
+        app:cardBackgroundColor="@color/myLightGray"
         app:cardCornerRadius="50dp"
         app:layout_constraintStart_toStartOf="@+id/update_goods_name_txt"
         app:layout_constraintTop_toBottomOf="@+id/update_goods_name_txt">
@@ -82,6 +83,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:background="@color/myLightGray"
+        app:cardBackgroundColor="@color/myLightGray"
         app:cardCornerRadius="50dp"
         app:layout_constraintStart_toStartOf="@+id/update_goods_cost_txt"
         app:layout_constraintTop_toBottomOf="@+id/update_goods_cost_txt">
@@ -118,6 +120,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:background="@color/myLightGray"
+        app:cardBackgroundColor="@color/myLightGray"
         app:cardCornerRadius="50dp"
         app:layout_constraintStart_toStartOf="@+id/update_goods_brand_txt"
         app:layout_constraintTop_toBottomOf="@+id/update_goods_brand_txt">
@@ -154,6 +157,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:background="@color/myLightGray"
+        app:cardBackgroundColor="@color/myLightGray"
         app:cardCornerRadius="50dp"
         app:layout_constraintStart_toStartOf="@+id/update_goods_amount_txt"
         app:layout_constraintTop_toBottomOf="@+id/update_goods_amount_txt">
@@ -182,7 +186,8 @@
         android:text="Отмена"
         android:textColor="@color/myCyan"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/update_goods_amount" />
+        app:layout_constraintTop_toBottomOf="@+id/update_goods_amount"
+        style="?android:attr/borderlessButtonStyle"/>
 
     <Button
         android:id="@+id/updateBtn"

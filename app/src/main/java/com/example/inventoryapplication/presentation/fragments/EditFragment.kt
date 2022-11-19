@@ -17,6 +17,7 @@ import androidx.navigation.fragment.navArgs
 import com.example.inventoryapplication.R
 import com.example.inventoryapplication.data.Goods
 import com.example.inventoryapplication.databinding.FragmentEditBinding
+import com.example.inventoryapplication.presentation.archive.ArchiveFragmentDirections
 import com.example.inventoryapplication.presentation.archive.ArchiveViewModel
 import com.example.inventoryapplication.presentation.inventory.InventoryViewModel
 
@@ -48,6 +49,10 @@ class EditFragment : Fragment() {
             updateGoods()
         }
 
+        binding.cancelUpdateBtn.setOnClickListener {
+            findNavController().navigateUp()
+        }
+
         return binding.root
     }
 
@@ -76,7 +81,7 @@ class EditFragment : Fragment() {
             val updatedGoods: Goods = Goods(args.currentGoods.id, name, Integer.parseInt(cost), brand, Integer.parseInt(amount), image, true)
             mArchiveViewModel.updateGoods(updatedGoods)
             Toast.makeText(requireContext(), "Изменения сохранены!", Toast.LENGTH_LONG).show()
-            findNavController().navigate(R.id.action_editFragment_to_archiveFragment)
+            findNavController().navigateUp()
         } else {
             Toast.makeText(requireContext(), "Заполните все поля!", Toast.LENGTH_LONG).show()
         }

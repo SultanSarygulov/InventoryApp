@@ -15,7 +15,14 @@
             app:destination="@id/addFragment" />
         <action
             android:id="@+id/action_inventoryFragment_to_archiveFragment"
-            app:destination="@id/archiveFragment" />
+            app:destination="@id/archiveFragment"
+            app:popUpTo="@id/editFragment"
+            app:popUpToInclusive="false" />
+        <action
+            android:id="@+id/action_inventoryFragment_to_editFragment"
+            app:destination="@id/editFragment"
+            app:popUpTo="@id/inventoryFragment"
+            app:popUpToInclusive="false" />
     </fragment>
     <fragment
         android:id="@+id/addFragment"
@@ -50,5 +57,8 @@
         <action
             android:id="@+id/action_editFragment_to_archiveFragment"
             app:destination="@id/archiveFragment" />
+        <action
+            android:id="@+id/action_editFragment_to_inventoryFragment"
+            app:destination="@id/inventoryFragment" />
     </fragment>
 </navigation>

@@ -8,8 +8,8 @@ import com.example.inventoryapplication.presentation.archive.ArchiveViewModel
 
 interface IGoods {
 
-    fun deleteGoods(context: Context, currentGoods: Goods, viewModel: AndroidViewModel)
+    fun onItemClick(currentGoods: Goods)
 
-    fun unArchiveGoods(context: Context, currentGoods: Goods, viewModel: ArchiveViewModel)
+    fun onPopupMenu(currentGoods: Goods)
 
 }

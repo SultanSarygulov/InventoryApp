@@ -48,6 +48,10 @@ class InventoryAdapter(private val viewModelStoreOwner: ViewModelStoreOwner):
                 .load(currentGoods.photo)
                 .into(image)
 
+            goodsItem.setOnClickListener {
+
+            }
+
             popupMenu.setOnClickListener {
                 val popup: PopupMenu = PopupMenu(popupMenu.context, popupMenu)
                 popup.inflate(R.menu.goods_item_menu)

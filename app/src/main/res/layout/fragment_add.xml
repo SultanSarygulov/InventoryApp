@@ -11,18 +11,17 @@
     android:padding="16dp"
     tools:context=".presentation.fragments.AddFragment">
 
-
     <ImageButton
         android:id="@+id/addImageButton"
         android:layout_width="150dp"
         android:layout_height="100dp"
         android:layout_marginTop="40dp"
-        android:background="@color/myLightGray"
+        android:background="@drawable/round_corners_shape"
         android:contentDescription="@string/image_btn_contentDesc"
         android:cropToPadding="true"
         android:foreground="?android:attr/selectableItemBackground"
-        android:scaleType="fitCenter"
-        android:src="@drawable/ic_img"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_image"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -45,7 +44,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
-        android:background="@color/myLightGray"
+        android:background=" #F3F3F4"
+        app:cardBackgroundColor="@color/myLightGray"
         app:cardCornerRadius="50dp"
         app:layout_constraintStart_toStartOf="@+id/goods_name_txt"
         app:layout_constraintTop_toBottomOf="@+id/goods_name_txt">
@@ -81,8 +81,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
-        android:background="@color/myLightGray"
-        app:cardCornerRadius="50dp"
+        android:background=" #F3F3F4"
+        app:cardBackgroundColor="@color/myLightGray"
+        app:cardCornerRadius="100dp"
         app:layout_constraintStart_toStartOf="@+id/goods_cost_txt"
         app:layout_constraintTop_toBottomOf="@+id/goods_cost_txt">
 
@@ -117,7 +118,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
-        android:background="@color/myLightGray"
+        android:background=" #F3F3F4"
+        app:cardBackgroundColor="@color/myLightGray"
         app:cardCornerRadius="50dp"
         app:layout_constraintStart_toStartOf="@+id/goods_brand_txt"
         app:layout_constraintTop_toBottomOf="@+id/goods_brand_txt">
@@ -153,7 +155,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
-        android:background="@color/myLightGray"
+        android:background=" #F3F3F4"
+        app:cardBackgroundColor="@color/myLightGray"
         app:cardCornerRadius="50dp"
         app:layout_constraintStart_toStartOf="@+id/goods_amount_txt"
         app:layout_constraintTop_toBottomOf="@+id/goods_amount_txt">
@@ -174,11 +177,13 @@
 
     <Button
         android:id="@+id/cancelBtn"
-        android:layout_width="wrap_content"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="120dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginTop="40dp"
         android:backgroundTint="@color/white"
+        android:elevation="0dp"
         android:text="Отмена"
         android:textColor="@color/myCyan"
         app:layout_constraintStart_toStartOf="parent"
@@ -186,12 +191,13 @@
 
     <Button
         android:id="@+id/addBtn"
-        android:layout_width="wrap_content"
+        android:layout_width="120dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
         android:layout_marginEnd="24dp"
-        android:text="Добавить"
         android:backgroundTint="@color/myCyan"
+        android:stateListAnimator="@null"
+        android:text="Добавить"
         android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/goods_amount" />
