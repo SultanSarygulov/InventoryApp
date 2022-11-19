@@ -19,7 +19,7 @@
 
         <FrameLayout
             android:id="@+id/popupMenu"
-            android:layout_width="16dp"
+            android:layout_width="25dp"
             android:layout_height="40dp"
             android:layout_marginEnd="16dp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -29,14 +29,13 @@
 
             <TextView
                 android:id="@+id/popup_icon"
-                android:layout_width="16dp"
+                android:layout_width="25dp"
                 android:layout_height="40dp"
                 android:backgroundTint="@color/white"
-                android:padding="5dp"
                 android:text="&#8942;"
                 android:textColor="@color/black"
                 android:textSize="20sp"
-                app:iconPadding="0dp"
+                android:gravity="center"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 

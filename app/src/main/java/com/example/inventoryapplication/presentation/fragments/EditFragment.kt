@@ -76,9 +76,10 @@ class EditFragment : Fragment() {
         val cost = binding.updateGoodsCostEdit.text.toString()
         val brand = binding.updateGoodsBrandEdit.text.toString()
         val amount = binding.updateGoodsAmountEdit.text.toString()
+        val archived = args.currentGoods.archived
 
         if (inputCheck(name, cost, brand, amount)){
-            val updatedGoods: Goods = Goods(args.currentGoods.id, name, Integer.parseInt(cost), brand, Integer.parseInt(amount), image, true)
+            val updatedGoods: Goods = Goods(args.currentGoods.id, name, Integer.parseInt(cost), brand, Integer.parseInt(amount), image, archived)
             mArchiveViewModel.updateGoods(updatedGoods)
             Toast.makeText(requireContext(), "Изменения сохранены!", Toast.LENGTH_LONG).show()
             findNavController().navigateUp()

@@ -16,11 +16,14 @@ interface GoodsDao {
     suspend fun updateUser(goods: Goods)
 
     @Query("SELECT * FROM goods_table WHERE archived = 0 ORDER BY id ASC")
-    fun readAllData(): LiveData<MutableList<Goods>>
+    fun readAllData(): LiveData<List<Goods>>
 
     @Query("SELECT * FROM goods_table WHERE archived = 1 ORDER BY id ASC")
-    fun readArchivedData(): LiveData<MutableList<Goods>>
+    fun readArchivedData(): LiveData<List<Goods>>
 
-    @Query("SELECT * FROM goods_table WHERE name LIKE :searchQuery OR brand LIKE :searchQuery ")
-    fun searchData(searchQuery: String): LiveData<MutableList<Goods>>
+    @Query("SELECT * FROM goods_table WHERE name LIKE :searchQuery AND archived = 0 OR brand LIKE :searchQuery AND archived = 0")
+    fun searchData(searchQuery: String): LiveData<List<Goods>>
+
+    @Query("SELECT * FROM goods_table WHERE name LIKE :searchQuery AND archived = 1 OR brand LIKE :searchQuery AND archived = 1")
+    fun searchArchivedData(searchQuery: String): LiveData<List<Goods>>
 }

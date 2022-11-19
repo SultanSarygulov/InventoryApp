@@ -1,4 +1,4 @@
-package com.example.inventoryapplication.domain
+package com.example.inventoryapplication.presentation
 
 import android.content.Context
 import androidx.lifecycle.AndroidViewModel

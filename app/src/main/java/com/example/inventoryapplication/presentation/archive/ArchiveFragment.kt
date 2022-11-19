@@ -1,23 +1,24 @@
 package com.example.inventoryapplication.presentation.archive
 
 import android.os.Bundle
+import android.text.TextUtils
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.inventoryapplication.data.Goods
 import com.example.inventoryapplication.databinding.BottomSheetDialogBinding
 import com.example.inventoryapplication.databinding.FragmentArchiveBinding
-import com.example.inventoryapplication.domain.IGoods
+import com.example.inventoryapplication.presentation.IGoods
 import com.example.inventoryapplication.presentation.RecyclerAdapter
 import com.google.android.material.bottomsheet.BottomSheetDialog
-import java.util.logging.Logger.global
 
-class ArchiveFragment : Fragment(), IGoods {
+class ArchiveFragment : Fragment(), IGoods, SearchView.OnQueryTextListener {
 
     private lateinit var binding: FragmentArchiveBinding
     private lateinit var mArchiveViewModel: ArchiveViewModel
@@ -37,6 +38,9 @@ class ArchiveFragment : Fragment(), IGoods {
         mArchiveViewModel = ViewModelProvider(this)[ArchiveViewModel::class.java]
         setRecyclerView()
         setLiveDataObserver()
+
+        binding.searchBar.isSubmitButtonEnabled = false
+        binding.searchBar.setOnQueryTextListener(this)
     }
 
     private fun setRecyclerView(){
@@ -46,8 +50,8 @@ class ArchiveFragment : Fragment(), IGoods {
     }
 
     private fun setLiveDataObserver(){
-        mArchiveViewModel.readArchivedData.observe(viewLifecycleOwner){ list ->
-            adapter.submitList(list)
+        mArchiveViewModel.readArchivedData.observe(viewLifecycleOwner){
+            adapter.submitList(it)
         }
     }
 
@@ -103,6 +107,29 @@ class ArchiveFragment : Fragment(), IGoods {
         }
 
         dialog.show()
+    }
+
+    override fun onQueryTextSubmit(query: String?): Boolean {
+        return true
+    }
+
+    override fun onQueryTextChange(query: String): Boolean {
+        if (!TextUtils.isEmpty(query)){
+            searchArchivedData(query)
+        } else {
+            val emptyQuery = ""
+            searchArchivedData(emptyQuery)
+        }
+        return true
+    }
+
+    private fun searchArchivedData(query: String){
+
+        val searchQuery = "%$query%"
+
+        mArchiveViewModel.searchArchivedGoods(searchQuery).observe(this){
+            adapter.submitList(it)
+        }
     }
 
 }

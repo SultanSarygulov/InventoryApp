@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.inventoryapplication.data.Goods
 import com.example.inventoryapplication.databinding.GoodsItemBinding
-import com.example.inventoryapplication.domain.IGoods
 
 class RecyclerAdapter(private val listener: IGoods):
     ListAdapter<Goods, RecyclerAdapter.ViewHolder>(GoodsDiffCallback()) {

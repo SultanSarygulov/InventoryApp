@@ -8,7 +8,9 @@
 
     <androidx.appcompat.widget.SearchView
         android:id="@+id/search_bar"
-        android:background="@color/myLightGray"
+        android:background="@drawable/round_corners_shape"
+        app:queryBackground="@null"
+        android:cropToPadding="true"
         android:layout_width="240dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"

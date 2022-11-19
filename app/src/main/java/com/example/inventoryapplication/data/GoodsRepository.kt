@@ -5,12 +5,16 @@ import androidx.room.Query
 
 class GoodsRepository(private val goodsDao: GoodsDao) {
 
-    var readAllData: LiveData<MutableList<Goods>> = goodsDao.readAllData()
+    var readAllData: LiveData<List<Goods>> = goodsDao.readAllData()
 
-    var readArchivedData: LiveData<MutableList<Goods>> = goodsDao.readArchivedData()
+    var readArchivedData: LiveData<List<Goods>> = goodsDao.readArchivedData()
 
-    fun searchData(searchQuery: String): LiveData<MutableList<Goods>> {
+    fun searchData(searchQuery: String): LiveData<List<Goods>> {
         return goodsDao.searchData(searchQuery)
+    }
+
+    fun searchArchivedData(searchQuery: String): LiveData<List<Goods>> {
+        return goodsDao.searchArchivedData(searchQuery)
     }
 
     suspend fun addGoods(goods: Goods){

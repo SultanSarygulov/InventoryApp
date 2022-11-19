@@ -1,11 +1,13 @@
 package com.example.inventoryapplication.presentation.inventory
 
 import android.os.Bundle
+import android.text.TextUtils
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
@@ -14,11 +16,11 @@ import com.example.inventoryapplication.R
 import com.example.inventoryapplication.data.Goods
 import com.example.inventoryapplication.databinding.BottomSheetDialogBinding
 import com.example.inventoryapplication.databinding.FragmentInventoryBinding
-import com.example.inventoryapplication.domain.IGoods
+import com.example.inventoryapplication.presentation.IGoods
 import com.example.inventoryapplication.presentation.RecyclerAdapter
 import com.google.android.material.bottomsheet.BottomSheetDialog
 
-class InventoryFragment : Fragment(), IGoods{
+class InventoryFragment : Fragment(), IGoods, SearchView.OnQueryTextListener{
 
     private lateinit var mInventoryViewModel: InventoryViewModel
     private lateinit var binding: FragmentInventoryBinding
@@ -39,7 +41,7 @@ class InventoryFragment : Fragment(), IGoods{
 
         mInventoryViewModel = ViewModelProvider(this)[InventoryViewModel::class.java]
         setRecyclerView()
-        setViewModel()
+        setLiveDataObserver()
 
         // Navigate to Add fragment
         binding.addButton.setOnClickListener {
@@ -47,8 +49,8 @@ class InventoryFragment : Fragment(), IGoods{
         }
 
         // Set SearchBar
-//        binding.searchBar.isSubmitButtonEnabled = true
-//        binding.searchBar.setOnQueryTextListener(this)
+        binding.searchBar.isSubmitButtonEnabled = false
+        binding.searchBar.setOnQueryTextListener(this)
     }
 
     private fun setRecyclerView() {
@@ -58,7 +60,7 @@ class InventoryFragment : Fragment(), IGoods{
     }
 
 
-    private fun setViewModel() {
+    private fun setLiveDataObserver() {
         mInventoryViewModel.readAllData.observe(viewLifecycleOwner) { list ->
             list.let {
                 adapter.submitList(it)
@@ -118,25 +120,27 @@ class InventoryFragment : Fragment(), IGoods{
     }
 
 
+    override fun onQueryTextSubmit(query: String?): Boolean {
+        return true
+    }
 
-    //    override fun onQueryTextSubmit(query: String?): Boolean {
-//        return true
-//    }
-//
-//    override fun onQueryTextChange(query: String?): Boolean {
-//        if (query != null){
-//            searchData(query)
-//        }
-//        return true
-//    }
-//
-//    private fun searchData(query: String){
-//        val searchQuery = "%$query%"
-//
-//        mInventoryViewModel.searchData(searchQuery).observe(this) { list ->
-//            list.let {
-//                adapter.submitList(it)
-//            }
-//        }
-//    }
+    override fun onQueryTextChange(query: String): Boolean {
+        if (!TextUtils.isEmpty(query)){
+            searchData(query)
+        } else {
+            val emptyQuery = ""
+            searchData(emptyQuery)
+        }
+        return true
+    }
+
+    private fun searchData(query: String){
+        val searchQuery = "%$query%"
+
+        mInventoryViewModel.searchData(searchQuery).observe(this) { list ->
+            list.let {
+                adapter.submitList(it)
+            }
+        }
+    }
 }

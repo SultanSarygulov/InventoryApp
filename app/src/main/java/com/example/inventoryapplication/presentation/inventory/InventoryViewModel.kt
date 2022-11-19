@@ -12,7 +12,7 @@ import kotlinx.coroutines.launch
 
 class InventoryViewModel(application: Application): AndroidViewModel(application) {
 
-    var readAllData: LiveData<MutableList<Goods>>
+    var readAllData: LiveData<List<Goods>>
     private val repository: GoodsRepository
 
     init {
@@ -39,7 +39,7 @@ class InventoryViewModel(application: Application): AndroidViewModel(application
         }
     }
 
-    fun searchData(searchQuery: String): LiveData<MutableList<Goods>>{
+    fun searchData(searchQuery: String): LiveData<List<Goods>>{
         return repository.searchData(searchQuery)
     }
 
