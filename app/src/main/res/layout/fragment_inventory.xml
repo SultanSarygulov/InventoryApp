@@ -4,11 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.fragments.InventoryFragment">
+    tools:context=".presentation.inventory.InventoryFragment">
 
     <androidx.appcompat.widget.SearchView
         android:id="@+id/search_bar"
-        android:background="@color/myLightGray"
+        android:background="@drawable/round_corners_shape"
+        app:queryBackground="@null"
+        android:cropToPadding="true"
         android:layout_width="240dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"

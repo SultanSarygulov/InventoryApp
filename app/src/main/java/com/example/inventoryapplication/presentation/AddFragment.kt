@@ -1,24 +1,23 @@
-package com.example.inventoryapplication.presentation.fragments
+package com.example.inventoryapplication.presentation
 
 import android.app.Activity.RESULT_OK
+import android.app.AlertDialog
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Bundle
-import android.provider.MediaStore
 import android.text.TextUtils
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContentProviderCompat.requireContext
+import androidx.core.view.drawToBitmap
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.viewModelScope
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import coil.ImageLoader
@@ -27,15 +26,13 @@ import coil.request.SuccessResult
 import com.example.inventoryapplication.R
 import com.example.inventoryapplication.data.Goods
 import com.example.inventoryapplication.databinding.FragmentAddBinding
-import com.example.inventoryapplication.presentation.GoodsViewModel
-import kotlinx.coroutines.Dispatchers
+import com.example.inventoryapplication.presentation.inventory.InventoryViewModel
 import kotlinx.coroutines.launch
-import java.net.URI
 
 class AddFragment : Fragment() {
 
     private lateinit var binding: FragmentAddBinding
-    private lateinit var mGoodsViewModel: GoodsViewModel
+    private lateinit var mInventoryViewModel: InventoryViewModel
 
     companion object{
         const val IMAGE_REQUEST_CODE = 100
@@ -48,7 +45,7 @@ class AddFragment : Fragment() {
         //(activity as AppCompatActivity).supportActionBar?.title = "Добавить товар"
         // Inflate the layout for this fragment
 
-        mGoodsViewModel = ViewModelProvider(this).get(GoodsViewModel::class.java)
+        mInventoryViewModel = ViewModelProvider(this).get(InventoryViewModel::class.java)
 
         binding = FragmentAddBinding.inflate(inflater, container, false)
 
@@ -62,7 +59,7 @@ class AddFragment : Fragment() {
 
 
         binding.addBtn.setOnClickListener {
-            addToDatabase()
+            addGoods()
         }
 
 
@@ -81,7 +78,6 @@ class AddFragment : Fragment() {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == IMAGE_REQUEST_CODE && resultCode == RESULT_OK){
             val imagePath: Uri? = data?.data
-            val imageBitmap = MediaStore.Images.Media.getBitmap(requireContext().contentResolver, imagePath);
             binding.addImageButton.setImageURI(imagePath)
         }
     }
@@ -97,27 +93,38 @@ class AddFragment : Fragment() {
         return (result as BitmapDrawable).bitmap
     }
 
-    private fun addToDatabase() {
+    private fun addGoods() {
         val name = binding.goodsNameEdit.text.toString()
         val cost = binding.goodsCostEdit.text.toString()
         val brand = binding.goodsBrandEdit.text.toString()
         val amount = binding.goodsAmountEdit.text.toString()
-        val photo = binding.addImageButton.getDrawable()
+        val photo = binding.addImageButton.drawToBitmap()
 
         if(inputCheck(name, cost, brand, amount)){
-            lifecycleScope.launch{
                 // Create Goods
-                val goods = Goods(0, name, Integer.parseInt(cost), brand, Integer.parseInt(amount), getBitmap(photo))
-                // use add function from viewmodel
-                mGoodsViewModel.addGoods(goods)
-                Toast.makeText(requireContext(), "Successfully added!", Toast.LENGTH_LONG).show()
-                // Navigate back
-                findNavController().navigate(R.id.action_addFragment_to_inventoryFragment)
-            }
+                val goods = Goods(0, name, Integer.parseInt(cost), brand, Integer.parseInt(amount), photo, false)
+                addToDatabase(goods)
+
         } else {
             Toast.makeText(requireContext(), "Please, fill out all fields", Toast.LENGTH_LONG).show()
         }
     }
+
+    private fun addToDatabase(goods: Goods) {
+        val builder = AlertDialog.Builder(requireContext())
+        builder.setPositiveButton("Yes"){ _,_ ->
+            mInventoryViewModel.addGoods(goods)
+            Toast.makeText(requireContext(), "Successfully added!", Toast.LENGTH_LONG).show()
+            // Navigate back
+            findNavController().navigate(R.id.action_addFragment_to_inventoryFragment)
+        }
+        builder.setNegativeButton("No"){_, _ ->
+
+        }
+        builder.setTitle("Добавить ${goods.name} в инвентарь?")
+        builder.create().show()
+    }
+
     // Check if the user inputted info
     private fun inputCheck(name: String, cost: String, brand: String, amount: String): Boolean {
         return (

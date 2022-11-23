@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:id="@+id/bottom_sheet"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/archivation"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:fontFamily="@font/open_sans_bold"
+        android:padding="20sp"
+        android:text="archivation"
+        android:textColor="@color/myBlue"
+        android:foreground="?android:attr/selectableItemBackground"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Архивировать" />
+
+    <TextView
+        android:id="@+id/deletion"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:fontFamily="@font/open_sans_bold"
+        android:padding="20sp"
+        android:text="deletion"
+        android:textColor="@color/myBlue"
+        android:foreground="?android:attr/selectableItemBackground"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/archivation"
+        tools:text="Удалить" />
+</androidx.constraintlayout.widget.ConstraintLayout>

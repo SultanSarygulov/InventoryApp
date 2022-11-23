@@ -1,18 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-<androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
     android:padding="16dp"
-    tools:context=".presentation.AddFragment">
+    tools:context=".presentation.EditFragment">
+
 
     <ImageButton
-        android:id="@+id/addImageButton"
+        android:id="@+id/updateImageButton"
         android:layout_width="150dp"
         android:layout_height="100dp"
         android:layout_marginTop="40dp"
@@ -24,10 +25,10 @@
         android:src="@drawable/ic_image"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <TextView
-        android:id="@+id/goods_name_txt"
+        android:id="@+id/update_goods_name_txt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
@@ -37,21 +38,21 @@
         android:textColor="@color/myGray"
         android:textSize="12sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/addImageButton" />
+        app:layout_constraintTop_toBottomOf="@+id/updateImageButton" />
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/goods_name"
+        android:id="@+id/update_goods_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
-        android:background=" #F3F3F4"
+        android:background="@color/myLightGray"
         app:cardBackgroundColor="@color/myLightGray"
         app:cardCornerRadius="50dp"
-        app:layout_constraintStart_toStartOf="@+id/goods_name_txt"
-        app:layout_constraintTop_toBottomOf="@+id/goods_name_txt">
+        app:layout_constraintStart_toStartOf="@+id/update_goods_name_txt"
+        app:layout_constraintTop_toBottomOf="@+id/update_goods_name_txt">
 
         <EditText
-            android:id="@+id/goods_name_edit"
+            android:id="@+id/update_goods_name_edit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="start"
@@ -65,7 +66,7 @@
     </androidx.cardview.widget.CardView>
 
     <TextView
-        android:id="@+id/goods_cost_txt"
+        android:id="@+id/update_goods_cost_txt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
@@ -73,22 +74,22 @@
         android:text="Цена товара"
         android:textColor="@color/myGray"
         android:textSize="12sp"
-        app:layout_constraintStart_toStartOf="@+id/goods_name_txt"
-        app:layout_constraintTop_toBottomOf="@+id/goods_name" />
+        app:layout_constraintStart_toStartOf="@+id/update_goods_name_txt"
+        app:layout_constraintTop_toBottomOf="@+id/update_goods_name" />
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/goods_cost"
+        android:id="@+id/update_goods_cost"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
-        android:background=" #F3F3F4"
+        android:background="@color/myLightGray"
         app:cardBackgroundColor="@color/myLightGray"
-        app:cardCornerRadius="100dp"
-        app:layout_constraintStart_toStartOf="@+id/goods_cost_txt"
-        app:layout_constraintTop_toBottomOf="@+id/goods_cost_txt">
+        app:cardCornerRadius="50dp"
+        app:layout_constraintStart_toStartOf="@+id/update_goods_cost_txt"
+        app:layout_constraintTop_toBottomOf="@+id/update_goods_cost_txt">
 
         <EditText
-            android:id="@+id/goods_cost_edit"
+            android:id="@+id/update_goods_cost_edit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="start"
@@ -102,7 +103,7 @@
     </androidx.cardview.widget.CardView>
 
     <TextView
-        android:id="@+id/goods_brand_txt"
+        android:id="@+id/update_goods_brand_txt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
@@ -110,22 +111,22 @@
         android:text="Производитель товара"
         android:textColor="@color/myGray"
         android:textSize="12sp"
-        app:layout_constraintStart_toStartOf="@+id/goods_name_txt"
-        app:layout_constraintTop_toBottomOf="@+id/goods_cost" />
+        app:layout_constraintStart_toStartOf="@+id/update_goods_name_txt"
+        app:layout_constraintTop_toBottomOf="@+id/update_goods_cost" />
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/goods_brand"
+        android:id="@+id/update_goods_brand"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
-        android:background=" #F3F3F4"
+        android:background="@color/myLightGray"
         app:cardBackgroundColor="@color/myLightGray"
         app:cardCornerRadius="50dp"
-        app:layout_constraintStart_toStartOf="@+id/goods_brand_txt"
-        app:layout_constraintTop_toBottomOf="@+id/goods_brand_txt">
+        app:layout_constraintStart_toStartOf="@+id/update_goods_brand_txt"
+        app:layout_constraintTop_toBottomOf="@+id/update_goods_brand_txt">
 
         <EditText
-            android:id="@+id/goods_brand_edit"
+            android:id="@+id/update_goods_brand_edit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="start"
@@ -139,7 +140,7 @@
     </androidx.cardview.widget.CardView>
 
     <TextView
-        android:id="@+id/goods_amount_txt"
+        android:id="@+id/update_goods_amount_txt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
@@ -147,22 +148,22 @@
         android:text="Количество товара"
         android:textColor="@color/myGray"
         android:textSize="12sp"
-        app:layout_constraintStart_toStartOf="@+id/goods_name_txt"
-        app:layout_constraintTop_toBottomOf="@+id/goods_brand" />
+        app:layout_constraintStart_toStartOf="@+id/update_goods_name_txt"
+        app:layout_constraintTop_toBottomOf="@+id/update_goods_brand" />
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/goods_amount"
+        android:id="@+id/update_goods_amount"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
-        android:background=" #F3F3F4"
+        android:background="@color/myLightGray"
         app:cardBackgroundColor="@color/myLightGray"
         app:cardCornerRadius="50dp"
-        app:layout_constraintStart_toStartOf="@+id/goods_amount_txt"
-        app:layout_constraintTop_toBottomOf="@+id/goods_amount_txt">
+        app:layout_constraintStart_toStartOf="@+id/update_goods_amount_txt"
+        app:layout_constraintTop_toBottomOf="@+id/update_goods_amount_txt">
 
         <EditText
-            android:id="@+id/goods_amount_edit"
+            android:id="@+id/update_goods_amount_edit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="start"
@@ -176,31 +177,29 @@
     </androidx.cardview.widget.CardView>
 
     <Button
-        android:id="@+id/cancelBtn"
-        style="?android:attr/borderlessButtonStyle"
-        android:layout_width="120dp"
+        android:id="@+id/cancelUpdateBtn"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginTop="40dp"
         android:backgroundTint="@color/white"
-        android:elevation="0dp"
         android:text="Отмена"
         android:textColor="@color/myCyan"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/goods_amount" />
+        app:layout_constraintTop_toBottomOf="@+id/update_goods_amount"
+        style="?android:attr/borderlessButtonStyle"/>
 
     <Button
-        android:id="@+id/addBtn"
-        android:layout_width="120dp"
+        android:id="@+id/updateBtn"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
         android:layout_marginEnd="24dp"
+        android:text="Сохранить"
         android:backgroundTint="@color/myCyan"
-        android:stateListAnimator="@null"
-        android:text="Добавить"
         android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/goods_amount" />
+        app:layout_constraintTop_toBottomOf="@+id/update_goods_amount" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
-</ScrollView>
+    </ScrollView>

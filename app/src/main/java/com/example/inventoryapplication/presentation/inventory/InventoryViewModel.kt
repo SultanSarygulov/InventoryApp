@@ -1,4 +1,4 @@
-package com.example.inventoryapplication.presentation
+package com.example.inventoryapplication.presentation.inventory
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
@@ -10,9 +10,9 @@ import com.example.inventoryapplication.data.GoodsRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class GoodsViewModel(application: Application): AndroidViewModel(application) {
+class InventoryViewModel(application: Application): AndroidViewModel(application) {
 
-    val readAllData: LiveData<List<Goods>>
+    var readAllData: LiveData<MutableList<Goods>>
     private val repository: GoodsRepository
 
     init {
@@ -33,7 +33,13 @@ class GoodsViewModel(application: Application): AndroidViewModel(application) {
         }
     }
 
-    fun searchData(searchQuery: String): LiveData<List<Goods>>{
+    fun updateGoods(goods: Goods){
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.updateGoods(goods)
+        }
+    }
+
+    fun searchData(searchQuery: String): LiveData<MutableList<Goods>>{
         return repository.searchData(searchQuery)
     }
 

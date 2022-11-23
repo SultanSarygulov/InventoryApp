@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/inventoryFragment"
-        android:name="com.example.inventoryapplication.presentation.fragments.InventoryFragment"
+        android:name="com.example.inventoryapplication.presentation.inventory.InventoryFragment"
         android:label="Главное"
         tools:layout="@layout/fragment_inventory" >
         <action
@@ -15,11 +15,18 @@
             app:destination="@id/addFragment" />
         <action
             android:id="@+id/action_inventoryFragment_to_archiveFragment"
-            app:destination="@id/archiveFragment" />
+            app:destination="@id/archiveFragment"
+            app:popUpTo="@id/editFragment"
+            app:popUpToInclusive="false" />
+        <action
+            android:id="@+id/action_inventoryFragment_to_editFragment"
+            app:destination="@id/editFragment"
+            app:popUpTo="@id/inventoryFragment"
+            app:popUpToInclusive="false" />
     </fragment>
     <fragment
         android:id="@+id/addFragment"
-        android:name="com.example.inventoryapplication.presentation.fragments.AddFragment"
+        android:name="com.example.inventoryapplication.presentation.AddFragment"
         android:label="Добавить товар"
         tools:layout="@layout/fragment_add" >
         <action
@@ -29,11 +36,29 @@
     </fragment>
     <fragment
         android:id="@+id/archiveFragment"
-        android:name="com.example.inventoryapplication.presentation.fragments.ArchiveFragment"
+        android:name="com.example.inventoryapplication.presentation.archive.ArchiveFragment"
         android:label="Архив"
         tools:layout="@layout/fragment_archive" >
         <action
             android:id="@+id/action_archiveFragment_to_inventoryFragment"
+            app:destination="@id/inventoryFragment" />
+        <action
+            android:id="@+id/action_archiveFragment_to_editFragment"
+            app:destination="@id/editFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/editFragment"
+        android:name="com.example.inventoryapplication.presentation.EditFragment"
+        android:label="Детали о товаре"
+        tools:layout="@layout/fragment_edit">
+        <argument
+            android:name="currentGoods"
+            app:argType="com.example.inventoryapplication.data.Goods" />
+        <action
+            android:id="@+id/action_editFragment_to_archiveFragment"
+            app:destination="@id/archiveFragment" />
+        <action
+            android:id="@+id/action_editFragment_to_inventoryFragment"
             app:destination="@id/inventoryFragment" />
     </fragment>
 </navigation>
