@@ -2,6 +2,7 @@ package com.example.inventoryapplication.presentation.archive
 
 import android.os.Bundle
 import android.text.TextUtils
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -39,6 +40,7 @@ class ArchiveFragment : Fragment(), IGoods, SearchView.OnQueryTextListener {
         setRecyclerView()
         setLiveDataObserver()
 
+
         binding.searchBar.isSubmitButtonEnabled = false
         binding.searchBar.setOnQueryTextListener(this)
     }
@@ -51,8 +53,33 @@ class ArchiveFragment : Fragment(), IGoods, SearchView.OnQueryTextListener {
 
     private fun setLiveDataObserver(){
         mArchiveViewModel.readArchivedData.observe(viewLifecycleOwner){
-            adapter.submitList(it)
+            adapter.goodsList = it
         }
+    }
+
+    override fun onItemClick(currentGoods: Goods) {
+
+        val action = ArchiveFragmentDirections.actionArchiveFragmentToEditFragment(currentGoods)
+        findNavController().navigate(action)
+    }
+
+    override fun onPopupMenu(currentGoods: Goods) {
+
+        val dialog = BottomSheetDialog(requireContext())
+        val binding = BottomSheetDialogBinding.inflate(LayoutInflater.from(context))
+        dialog.setContentView(binding.root)
+
+        binding.archivation.text = "Восстановить"
+        binding.archivation.setOnClickListener {
+            unArchiveGoods(currentGoods)
+        }
+
+        binding.deletion.text = "Удалить"
+        binding.deletion.setOnClickListener {
+            deleteGoods(currentGoods)
+        }
+
+        dialog.show()
     }
 
     fun deleteGoods(currentGoods: Goods) {
@@ -84,32 +111,8 @@ class ArchiveFragment : Fragment(), IGoods, SearchView.OnQueryTextListener {
         }
     }
 
-    override fun onItemClick(currentGoods: Goods) {
-
-        val action = ArchiveFragmentDirections.actionArchiveFragmentToEditFragment(currentGoods)
-        findNavController().navigate(action)
-    }
-
-    override fun onPopupMenu(currentGoods: Goods) {
-
-        val dialog = BottomSheetDialog(requireContext())
-        val binding = BottomSheetDialogBinding.inflate(LayoutInflater.from(context))
-        dialog.setContentView(binding.root)
-
-        binding.archivation.text = "Восстановить"
-        binding.archivation.setOnClickListener {
-            unArchiveGoods(currentGoods)
-        }
-
-        binding.deletion.text = "Удалить"
-        binding.deletion.setOnClickListener {
-            deleteGoods(currentGoods)
-        }
-
-        dialog.show()
-    }
-
     override fun onQueryTextSubmit(query: String?): Boolean {
+
         return true
     }
 
@@ -128,7 +131,7 @@ class ArchiveFragment : Fragment(), IGoods, SearchView.OnQueryTextListener {
         val searchQuery = "%$query%"
 
         mArchiveViewModel.searchArchivedGoods(searchQuery).observe(this){
-            adapter.submitList(it)
+            adapter.goodsList = it
         }
     }
 

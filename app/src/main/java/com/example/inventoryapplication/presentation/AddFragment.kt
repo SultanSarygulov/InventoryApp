@@ -1,4 +1,4 @@
-package com.example.inventoryapplication.presentation.fragments
+package com.example.inventoryapplication.presentation
 
 import android.app.Activity.RESULT_OK
 import android.app.AlertDialog
@@ -14,6 +14,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.view.drawToBitmap
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
@@ -100,11 +101,10 @@ class AddFragment : Fragment() {
         val photo = binding.addImageButton.drawToBitmap()
 
         if(inputCheck(name, cost, brand, amount)){
-            lifecycleScope.launch{
                 // Create Goods
                 val goods = Goods(0, name, Integer.parseInt(cost), brand, Integer.parseInt(amount), photo, false)
                 addToDatabase(goods)
-            }
+
         } else {
             Toast.makeText(requireContext(), "Please, fill out all fields", Toast.LENGTH_LONG).show()
         }

@@ -1,4 +1,4 @@
-package com.example.inventoryapplication.presentation.fragments
+package com.example.inventoryapplication.presentation
 
 import android.app.Activity
 import android.content.Intent
@@ -14,12 +14,9 @@ import androidx.core.view.drawToBitmap
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.example.inventoryapplication.R
 import com.example.inventoryapplication.data.Goods
 import com.example.inventoryapplication.databinding.FragmentEditBinding
-import com.example.inventoryapplication.presentation.archive.ArchiveFragmentDirections
 import com.example.inventoryapplication.presentation.archive.ArchiveViewModel
-import com.example.inventoryapplication.presentation.inventory.InventoryViewModel
 
 class EditFragment : Fragment() {
 
@@ -79,7 +76,7 @@ class EditFragment : Fragment() {
         val archived = args.currentGoods.archived
 
         if (inputCheck(name, cost, brand, amount)){
-            val updatedGoods: Goods = Goods(args.currentGoods.id, name, Integer.parseInt(cost), brand, Integer.parseInt(amount), image, archived)
+            val updatedGoods= Goods(args.currentGoods.id, name, Integer.parseInt(cost), brand, Integer.parseInt(amount), image, archived)
             mArchiveViewModel.updateGoods(updatedGoods)
             Toast.makeText(requireContext(), "Изменения сохранены!", Toast.LENGTH_LONG).show()
             findNavController().navigateUp()

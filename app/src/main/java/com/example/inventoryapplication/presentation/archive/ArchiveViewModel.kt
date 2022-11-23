@@ -12,7 +12,7 @@ import kotlinx.coroutines.launch
 
 class ArchiveViewModel(application: Application): AndroidViewModel(application) {
 
-    var readArchivedData: LiveData<List<Goods>>
+    var readArchivedData: LiveData<MutableList<Goods>>
     private val repository: GoodsRepository
 
     init {
@@ -33,7 +33,7 @@ class ArchiveViewModel(application: Application): AndroidViewModel(application) 
         }
     }
 
-    fun searchArchivedGoods(searchQuery: String): LiveData<List<Goods>>{
+    fun searchArchivedGoods(searchQuery: String): LiveData<MutableList<Goods>>{
         return repository.searchArchivedData(searchQuery)
     }
 

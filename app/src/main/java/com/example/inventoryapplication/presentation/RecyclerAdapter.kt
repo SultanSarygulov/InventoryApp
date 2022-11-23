@@ -1,18 +1,28 @@
 package com.example.inventoryapplication.presentation
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.inventoryapplication.data.Goods
 import com.example.inventoryapplication.databinding.GoodsItemBinding
 
-class RecyclerAdapter(private val listener: IGoods):
-    ListAdapter<Goods, RecyclerAdapter.ViewHolder>(GoodsDiffCallback()) {
+class RecyclerAdapter(private val listener: IGoods): RecyclerView.Adapter<RecyclerAdapter.ViewHolder>() {
 
     lateinit var binding: GoodsItemBinding
+    
+    var goodsList = mutableListOf<Goods>()
+        set(value){
+            val callback = GoodsDiffUtilCallback(goodsList, value)
+            val diffResult = DiffUtil.calculateDiff(callback)
+            goodsList.clear()
+            goodsList.addAll(value)
+            diffResult.dispatchUpdatesTo(this)
+        }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 
@@ -28,7 +38,7 @@ class RecyclerAdapter(private val listener: IGoods):
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
-        val currentGoods = getItem(position)
+        val currentGoods = goodsList[position]
 
         binding.apply {
             name.text = currentGoods.name
@@ -49,4 +59,6 @@ class RecyclerAdapter(private val listener: IGoods):
             }
         }
     }
+
+    override fun getItemCount(): Int  = goodsList.size
 }
