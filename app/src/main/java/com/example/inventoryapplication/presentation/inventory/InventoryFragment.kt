@@ -2,7 +2,6 @@ package com.example.inventoryapplication.presentation.inventory
 
 import android.os.Bundle
 import android.text.TextUtils
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -63,7 +62,7 @@ class InventoryFragment : Fragment(), IGoods, SearchView.OnQueryTextListener{
 
     private fun setLiveDataObserver() {
         mInventoryViewModel.readAllData.observe(viewLifecycleOwner) {
-            adapter.goodsList = it
+            adapter.setList(it)
         }
     }
 
@@ -139,7 +138,7 @@ class InventoryFragment : Fragment(), IGoods, SearchView.OnQueryTextListener{
         val searchQuery = "%$query%"
 
         mInventoryViewModel.searchData(searchQuery).observe(this) {
-            adapter.goodsList = it
+            adapter.setList(it)
         }
     }
 }

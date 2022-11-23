@@ -1,5 +1,6 @@
 package com.example.inventoryapplication.presentation
 
+import android.annotation.SuppressLint
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -8,56 +9,53 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.inventoryapplication.R
 import com.example.inventoryapplication.data.Goods
 import com.example.inventoryapplication.databinding.GoodsItemBinding
 
-class RecyclerAdapter(private val listener: IGoods): RecyclerView.Adapter<RecyclerAdapter.ViewHolder>() {
+class RecyclerAdapter(private val listener: IGoods): RecyclerView.Adapter<RecyclerAdapter.GoodsViewHolder>() {
 
-    lateinit var binding: GoodsItemBinding
-    
     var goodsList = mutableListOf<Goods>()
-        set(value){
-            val callback = GoodsDiffUtilCallback(goodsList, value)
-            val diffResult = DiffUtil.calculateDiff(callback)
-            goodsList.clear()
-            goodsList.addAll(value)
-            diffResult.dispatchUpdatesTo(this)
-        }
 
-    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
-
-    override fun onCreateViewHolder(
-        parent: ViewGroup,
-        viewType: Int
-    ): ViewHolder {
-        binding = GoodsItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-
-        return ViewHolder(binding.root)
+    fun setList(newList: List<Goods>) {
+        Log.i("TAG", "setList")
+        val diffCallback = GoodsDiffUtilCallback(goodsList, newList)
+        val diffResult = DiffUtil.calculateDiff(diffCallback)
+        goodsList.clear()
+        goodsList.addAll(newList)
+        diffResult.dispatchUpdatesTo(this)
     }
 
+    inner class GoodsViewHolder(item: View): RecyclerView.ViewHolder(item){
+            val binding = GoodsItemBinding.bind(item)
+            @SuppressLint("SetTextI18n")
+            fun bind(goods: Goods) = with(binding) {
+                    name.text = goods.name
+                    cost.text = "$ ${goods.cost}"
+                    brand.text = goods.brand
+                    amount.text = "${goods.amount} шт"
+                    Glide
+                        .with(root)
+                        .load(goods.photo)
+                        .into(image)
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+                    goodsItem.setOnClickListener {
+                        listener.onItemClick(goods)
+                    }
 
-        val currentGoods = goodsList[position]
-
-        binding.apply {
-            name.text = currentGoods.name
-            cost.text = "$ ${currentGoods.cost}"
-            brand.text = currentGoods.brand
-            amount.text = "${currentGoods.amount} шт"
-            Glide
-                .with(root)
-                .load(currentGoods.photo)
-                .into(image)
-
-            goodsItem.setOnClickListener {
-                listener.onItemClick(currentGoods)
+                    popupMenu.setOnClickListener {
+                        listener.onPopupMenu(goods)
+                    }
+                }
             }
 
-            popupMenu.setOnClickListener {
-                listener.onPopupMenu(currentGoods)
-            }
-        }
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GoodsViewHolder {
+        val view = LayoutInflater.from((parent.context)).inflate(R.layout.goods_item, parent, false)
+        return GoodsViewHolder(view)
+    }
+
+    override fun onBindViewHolder(holder: GoodsViewHolder, position: Int) {
+        holder.bind(goodsList[position])
     }
 
     override fun getItemCount(): Int  = goodsList.size
