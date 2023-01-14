@@ -13,7 +13,7 @@ interface GoodsDao {
     suspend fun deleteGoods(goods: Goods)
 
     @Update
-    suspend fun updateUser(goods: Goods)
+    suspend fun editGoods(goods: Goods)
 
     @Query("SELECT * FROM goods_table WHERE archived = 0 ORDER BY id ASC")
     fun readAllData(): LiveData<MutableList<Goods>>

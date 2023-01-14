@@ -26,7 +26,7 @@
     </fragment>
     <fragment
         android:id="@+id/addFragment"
-        android:name="com.example.inventoryapplication.presentation.AddFragment"
+        android:name="com.example.inventoryapplication.presentation.add.AddFragment"
         android:label="Добавить товар"
         tools:layout="@layout/fragment_add" >
         <action
@@ -48,7 +48,7 @@
     </fragment>
     <fragment
         android:id="@+id/editFragment"
-        android:name="com.example.inventoryapplication.presentation.EditFragment"
+        android:name="com.example.inventoryapplication.presentation.edit.EditFragment"
         android:label="Детали о товаре"
         tools:layout="@layout/fragment_edit">
         <argument

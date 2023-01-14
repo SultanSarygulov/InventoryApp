@@ -1,4 +1,4 @@
-package com.example.inventoryapplication.presentation
+package com.example.inventoryapplication.presentation.tools
 
 import androidx.recyclerview.widget.DiffUtil
 import com.example.inventoryapplication.data.Goods

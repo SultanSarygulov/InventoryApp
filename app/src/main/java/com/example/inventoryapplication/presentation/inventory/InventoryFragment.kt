@@ -16,7 +16,7 @@ import com.example.inventoryapplication.R
 import com.example.inventoryapplication.data.Goods
 import com.example.inventoryapplication.databinding.BottomSheetDialogBinding
 import com.example.inventoryapplication.databinding.FragmentInventoryBinding
-import com.example.inventoryapplication.presentation.IGoods
+import com.example.inventoryapplication.presentation.tools.IGoods
 import com.example.inventoryapplication.presentation.RecyclerAdapter
 import com.google.android.material.bottomsheet.BottomSheetDialog
 
@@ -108,7 +108,7 @@ class InventoryFragment : Fragment(), IGoods, SearchView.OnQueryTextListener{
                 currentGoods.photo,
                 archivedTrue)
 
-            mInventoryViewModel.updateGoods(archivedGoods)
+            mInventoryViewModel.editGoods(archivedGoods)
 
             Toast.makeText(context, "'${currentGoods.name}' архивирован!", Toast.LENGTH_LONG).show()
 

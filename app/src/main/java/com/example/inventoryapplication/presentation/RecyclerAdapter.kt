@@ -6,12 +6,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.inventoryapplication.R
 import com.example.inventoryapplication.data.Goods
 import com.example.inventoryapplication.databinding.GoodsItemBinding
+import com.example.inventoryapplication.presentation.tools.GoodsDiffUtilCallback
+import com.example.inventoryapplication.presentation.tools.IGoods
 
 class RecyclerAdapter(private val listener: IGoods): RecyclerView.Adapter<RecyclerAdapter.GoodsViewHolder>() {
 

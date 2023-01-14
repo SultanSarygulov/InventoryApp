@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.example.inventoryapplication.data.Goods
 import com.example.inventoryapplication.databinding.BottomSheetDialogBinding
 import com.example.inventoryapplication.databinding.FragmentArchiveBinding
-import com.example.inventoryapplication.presentation.IGoods
+import com.example.inventoryapplication.presentation.tools.IGoods
 import com.example.inventoryapplication.presentation.RecyclerAdapter
 import com.google.android.material.bottomsheet.BottomSheetDialog
 
@@ -100,7 +100,7 @@ class ArchiveFragment : Fragment(), IGoods, SearchView.OnQueryTextListener {
                 currentGoods.photo,
                 archivedFalse)
 
-            mArchiveViewModel.updateGoods(unArchivedGoods)
+            mArchiveViewModel.editGoods(unArchivedGoods)
 
 
             Toast.makeText(context, "'${currentGoods.name}' восставновлен!", Toast.LENGTH_LONG).show()

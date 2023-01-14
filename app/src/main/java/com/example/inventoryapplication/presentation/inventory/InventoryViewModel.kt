@@ -6,18 +6,18 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
 import com.example.inventoryapplication.data.Goods
 import com.example.inventoryapplication.data.GoodsDatabase
-import com.example.inventoryapplication.data.GoodsRepository
+import com.example.inventoryapplication.data.GoodsRepositoryImpl
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class InventoryViewModel(application: Application): AndroidViewModel(application) {
 
     var readAllData: LiveData<MutableList<Goods>>
-    private val repository: GoodsRepository
+    private val repository: GoodsRepositoryImpl
 
     init {
         val goodsDao = GoodsDatabase.getDatabase(application).goodsDao()
-        repository = GoodsRepository(goodsDao)
+        repository = GoodsRepositoryImpl(goodsDao)
         readAllData = repository.readAllData
     }
 
@@ -33,9 +33,9 @@ class InventoryViewModel(application: Application): AndroidViewModel(application
         }
     }
 
-    fun updateGoods(goods: Goods){
+    fun editGoods(goods: Goods){
         viewModelScope.launch(Dispatchers.IO) {
-            repository.updateGoods(goods)
+            repository.editGoods(goods)
         }
     }
 

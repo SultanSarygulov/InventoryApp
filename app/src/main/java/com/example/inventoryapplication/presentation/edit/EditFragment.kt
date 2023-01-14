@@ -1,4 +1,4 @@
-package com.example.inventoryapplication.presentation
+package com.example.inventoryapplication.presentation.edit
 
 import android.app.Activity
 import android.content.Intent
@@ -77,7 +77,7 @@ class EditFragment : Fragment() {
 
         if (inputCheck(name, cost, brand, amount)){
             val updatedGoods= Goods(args.currentGoods.id, name, Integer.parseInt(cost), brand, Integer.parseInt(amount), image, archived)
-            mArchiveViewModel.updateGoods(updatedGoods)
+            mArchiveViewModel.editGoods(updatedGoods)
             Toast.makeText(requireContext(), "Изменения сохранены!", Toast.LENGTH_LONG).show()
             findNavController().navigateUp()
         } else {

@@ -1,9 +1,8 @@
 package com.example.inventoryapplication.data
 
 import androidx.lifecycle.LiveData
-import androidx.room.Query
 
-class GoodsRepository(private val goodsDao: GoodsDao) {
+class GoodsRepositoryImpl(private val goodsDao: GoodsDao) {
 
     var readAllData: LiveData<MutableList<Goods>> = goodsDao.readAllData()
 
@@ -25,7 +24,7 @@ class GoodsRepository(private val goodsDao: GoodsDao) {
         goodsDao.deleteGoods(goods)
     }
 
-    suspend fun updateGoods(goods: Goods){
-        goodsDao.updateUser(goods)
+    suspend fun editGoods(goods: Goods){
+        goodsDao.editGoods(goods)
     }
 }

@@ -1,4 +1,4 @@
-package com.example.inventoryapplication.presentation
+package com.example.inventoryapplication.presentation.add
 
 import android.app.Activity.RESULT_OK
 import android.app.AlertDialog
@@ -14,10 +14,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.view.drawToBitmap
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import coil.ImageLoader
@@ -27,7 +25,6 @@ import com.example.inventoryapplication.R
 import com.example.inventoryapplication.data.Goods
 import com.example.inventoryapplication.databinding.FragmentAddBinding
 import com.example.inventoryapplication.presentation.inventory.InventoryViewModel
-import kotlinx.coroutines.launch
 
 class AddFragment : Fragment() {
 
