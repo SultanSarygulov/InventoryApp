@@ -1,6 +1,7 @@
 package com.example.inventoryapplication.data
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.example.inventoryapplication.domain.GoodsRepository
 
 class GoodsRepoImpl(private val goodsDao: GoodsDao) : GoodsRepository {
@@ -43,5 +44,9 @@ class GoodsRepoImpl(private val goodsDao: GoodsDao) : GoodsRepository {
 
     override fun getGoodsList(): LiveData<MutableList<Goods>> {
         return goodsDao.readAllData()
+    }
+
+    override fun searchGoods(searchQuery: String): LiveData<MutableList<Goods>> {
+        return goodsDao.searchData(searchQuery)
     }
 }

@@ -1,6 +1,7 @@
-package com.example.inventoryapplication.domain
+package com.example.inventoryapplication.domain.usecases
 
 import com.example.inventoryapplication.data.Goods
+import com.example.inventoryapplication.domain.GoodsRepository
 
 class DeleteGoodsUseCase(private val goodsRepository: GoodsRepository) {
 

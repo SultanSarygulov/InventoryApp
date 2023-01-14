@@ -1,6 +1,7 @@
 package com.example.inventoryapplication.domain
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.example.inventoryapplication.data.Goods
 
 interface GoodsRepository {
@@ -16,4 +17,6 @@ interface GoodsRepository {
     fun getGoods(): Goods
 
     fun getGoodsList(): LiveData<MutableList<Goods>>
+
+    fun searchGoods(searchQuery: String): LiveData<MutableList<Goods>>
 }
