@@ -13,7 +13,7 @@ import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.inventoryapplication.R
-import com.example.inventoryapplication.data.Goods
+import com.example.inventoryapplication.domain.Goods
 import com.example.inventoryapplication.databinding.BottomSheetDialogBinding
 import com.example.inventoryapplication.databinding.FragmentInventoryBinding
 import com.example.inventoryapplication.presentation.tools.IGoods
@@ -61,9 +61,11 @@ class InventoryFragment : Fragment(), IGoods, SearchView.OnQueryTextListener{
 
 
     private fun setLiveDataObserver() {
-        mInventoryViewModel.readAllData.observe(viewLifecycleOwner) {
+
+        mInventoryViewModel.goodsList.observe(viewLifecycleOwner) {
             adapter.setList(it)
         }
+//        mInventoryViewModel.getGoodsList()
     }
 
     override fun onItemClick(currentGoods: Goods) {

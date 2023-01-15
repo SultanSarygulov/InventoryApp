@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.inventoryapplication.R
-import com.example.inventoryapplication.data.Goods
+import com.example.inventoryapplication.domain.Goods
 import com.example.inventoryapplication.databinding.GoodsItemBinding
 import com.example.inventoryapplication.presentation.tools.GoodsDiffUtilCallback
 import com.example.inventoryapplication.presentation.tools.IGoods

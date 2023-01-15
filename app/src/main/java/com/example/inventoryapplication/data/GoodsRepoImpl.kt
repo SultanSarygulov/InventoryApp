@@ -2,6 +2,7 @@ package com.example.inventoryapplication.data
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.example.inventoryapplication.domain.Goods
 import com.example.inventoryapplication.domain.GoodsRepository
 
 class GoodsRepoImpl(private val goodsDao: GoodsDao) : GoodsRepository {
@@ -42,7 +43,7 @@ class GoodsRepoImpl(private val goodsDao: GoodsDao) : GoodsRepository {
         TODO("Not yet implemented")
     }
 
-    override fun getGoodsList(): LiveData<MutableList<Goods>> {
+    override suspend fun getGoodsList(): MutableList<Goods> {
         return goodsDao.readAllData()
     }
 

@@ -11,7 +11,7 @@ import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
-import com.example.inventoryapplication.data.Goods
+import com.example.inventoryapplication.domain.Goods
 import com.example.inventoryapplication.databinding.BottomSheetDialogBinding
 import com.example.inventoryapplication.databinding.FragmentArchiveBinding
 import com.example.inventoryapplication.presentation.tools.IGoods

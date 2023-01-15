@@ -4,7 +4,7 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
-import com.example.inventoryapplication.data.Goods
+import com.example.inventoryapplication.domain.Goods
 import com.example.inventoryapplication.data.GoodsDatabase
 import com.example.inventoryapplication.data.GoodsRepositoryImpl
 import kotlinx.coroutines.Dispatchers

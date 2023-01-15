@@ -3,6 +3,7 @@ package com.example.inventoryapplication.data
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.room.*
+import com.example.inventoryapplication.domain.Goods
 
 @Dao
 interface GoodsDao {
@@ -17,7 +18,7 @@ interface GoodsDao {
     suspend fun editGoods(goods: Goods)
 
     @Query("SELECT * FROM goods_table WHERE archived = 0 ORDER BY id ASC")
-    fun readAllData(): LiveData<MutableList<Goods>>
+    fun readAllData(): MutableList<Goods>
 
     @Query("SELECT * FROM goods_table WHERE archived = 1 ORDER BY id ASC")
     fun readArchivedData(): LiveData<MutableList<Goods>>

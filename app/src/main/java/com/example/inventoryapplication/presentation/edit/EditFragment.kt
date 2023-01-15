@@ -14,7 +14,7 @@ import androidx.core.view.drawToBitmap
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.example.inventoryapplication.data.Goods
+import com.example.inventoryapplication.domain.Goods
 import com.example.inventoryapplication.databinding.FragmentEditBinding
 import com.example.inventoryapplication.presentation.archive.ArchiveViewModel
 

@@ -1,4 +1,4 @@
-package com.example.inventoryapplication.data
+package com.example.inventoryapplication.domain
 
 import android.graphics.Bitmap
 import android.os.Parcelable

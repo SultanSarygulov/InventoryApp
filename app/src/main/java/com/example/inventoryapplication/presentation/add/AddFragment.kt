@@ -22,7 +22,7 @@ import coil.ImageLoader
 import coil.request.ImageRequest
 import coil.request.SuccessResult
 import com.example.inventoryapplication.R
-import com.example.inventoryapplication.data.Goods
+import com.example.inventoryapplication.domain.Goods
 import com.example.inventoryapplication.databinding.FragmentAddBinding
 import com.example.inventoryapplication.presentation.inventory.InventoryViewModel
 

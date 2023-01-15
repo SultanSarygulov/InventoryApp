@@ -1,6 +1,6 @@
 package com.example.inventoryapplication.presentation.tools
 
-import com.example.inventoryapplication.data.Goods
+import com.example.inventoryapplication.domain.Goods
 
 interface IGoods {
 
