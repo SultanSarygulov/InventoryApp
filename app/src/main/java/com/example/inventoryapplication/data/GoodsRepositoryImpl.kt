@@ -5,7 +5,7 @@ import com.example.inventoryapplication.domain.Goods
 
 class GoodsRepositoryImpl(private val goodsDao: GoodsDao) {
 
-//    var readAllData: LiveData<MutableList<Goods>> = goodsDao.readAllData()
+    var readAllData: LiveData<MutableList<Goods>> = goodsDao.readAllData()
 
     var readArchivedData: LiveData<MutableList<Goods>> = goodsDao.readArchivedData()
 

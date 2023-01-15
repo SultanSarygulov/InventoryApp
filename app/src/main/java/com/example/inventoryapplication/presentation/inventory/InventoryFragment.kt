@@ -63,9 +63,9 @@ class InventoryFragment : Fragment(), IGoods, SearchView.OnQueryTextListener{
     private fun setLiveDataObserver() {
 
         mInventoryViewModel.goodsList.observe(viewLifecycleOwner) {
-            adapter.setList(it)
+            adapter.submitList(it)
         }
-//        mInventoryViewModel.getGoodsList()
+
     }
 
     override fun onItemClick(currentGoods: Goods) {
@@ -140,7 +140,7 @@ class InventoryFragment : Fragment(), IGoods, SearchView.OnQueryTextListener{
         val searchQuery = "%$query%"
 
         mInventoryViewModel.searchData(searchQuery).observe(this) {
-            adapter.setList(it)
+            adapter.submitList(it)
         }
     }
 }

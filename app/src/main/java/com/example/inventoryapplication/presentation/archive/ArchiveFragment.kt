@@ -52,7 +52,7 @@ class ArchiveFragment : Fragment(), IGoods, SearchView.OnQueryTextListener {
 
     private fun setLiveDataObserver(){
         mArchiveViewModel.readArchivedData.observe(viewLifecycleOwner){
-            adapter.setList(it)
+            adapter.submitList(it)
         }
     }
 
@@ -130,7 +130,7 @@ class ArchiveFragment : Fragment(), IGoods, SearchView.OnQueryTextListener {
         val searchQuery = "%$query%"
 
         mArchiveViewModel.searchArchivedGoods(searchQuery).observe(this){
-            adapter.setList(it)
+            adapter.submitList(it)
         }
     }
 

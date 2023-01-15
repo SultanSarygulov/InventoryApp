@@ -15,7 +15,7 @@ interface GoodsRepository {
 
     fun getGoods(): Goods
 
-    suspend fun getGoodsList(): MutableList<Goods>
+    fun getGoodsList(): LiveData<MutableList<Goods>>
 
     fun searchGoods(searchQuery: String): LiveData<MutableList<Goods>>
 }

@@ -18,7 +18,7 @@ interface GoodsDao {
     suspend fun editGoods(goods: Goods)
 
     @Query("SELECT * FROM goods_table WHERE archived = 0 ORDER BY id ASC")
-    fun readAllData(): MutableList<Goods>
+    fun readAllData(): LiveData<MutableList<Goods>>
 
     @Query("SELECT * FROM goods_table WHERE archived = 1 ORDER BY id ASC")
     fun readArchivedData(): LiveData<MutableList<Goods>>

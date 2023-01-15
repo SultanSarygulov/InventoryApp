@@ -7,6 +7,8 @@ import com.example.inventoryapplication.domain.GoodsRepository
 
 class GoodsRepoImpl(private val goodsDao: GoodsDao) : GoodsRepository {
 
+    private val goodsListLiveData = MutableLiveData<MutableList<Goods>>()
+
     override suspend fun addGoods(goods: Goods) {
         goodsDao.addGoods(goods)
     }
@@ -43,8 +45,8 @@ class GoodsRepoImpl(private val goodsDao: GoodsDao) : GoodsRepository {
         TODO("Not yet implemented")
     }
 
-    override suspend fun getGoodsList(): MutableList<Goods> {
-        return goodsDao.readAllData()
+    override fun getGoodsList(): LiveData<MutableList<Goods>> {
+        return goodsListLiveData
     }
 
     override fun searchGoods(searchQuery: String): LiveData<MutableList<Goods>> {

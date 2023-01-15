@@ -24,12 +24,10 @@ class InventoryViewModel(application: Application): AndroidViewModel(application
 
 //    var readAllData: LiveData<MutableList<Goods>>
 
-    var goodsList = MutableLiveData<MutableList<Goods>>()
-
     init {
         val goodsDao = GoodsDatabase.getDatabase(application).goodsDao()
         repository = GoodsRepositoryImpl(goodsDao)
-//        readAllData = repository.readAllData
+//        readAllData = .readAllData
 
         repo = GoodsRepoImpl(goodsDao)
     }
@@ -38,6 +36,8 @@ class InventoryViewModel(application: Application): AndroidViewModel(application
     private val deleteGoodsUseCase = DeleteGoodsUseCase(repo)
     private val editGoodsUseCase = EditGoodsUseCase(repo)
     private val getGoodsListUseCase = GetGoodsListUseCase(repo)
+
+    val goodsList = getGoodsListUseCase.getGoodsList()
 
     fun addGoods(goods: Goods){
         viewModelScope.launch(Dispatchers.IO ) {
@@ -57,12 +57,12 @@ class InventoryViewModel(application: Application): AndroidViewModel(application
         }
     }
 
-    fun getGoodsList(){
-        viewModelScope.launch(Dispatchers.IO) {
-            val list = getGoodsListUseCase.getGoodsList()
-            goodsList.postValue(list)
-        }
-    }
+//    fun getGoodsList(){
+//        viewModelScope.launch(Dispatchers.IO) {
+//            val list = getGoodsListUseCase.getGoodsList()
+//            goodsList.postValue(list)
+//        }
+//    }
 
     fun searchData(searchQuery: String): LiveData<MutableList<Goods>>{
         return repository.searchData(searchQuery)

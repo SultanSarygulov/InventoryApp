@@ -7,7 +7,7 @@ import com.example.inventoryapplication.domain.GoodsRepository
 
 class GetGoodsListUseCase(private val goodsRepository: GoodsRepository) {
 
-    suspend fun getGoodsList(): MutableList<Goods>{
+    fun getGoodsList(): LiveData<MutableList<Goods>>{
         return goodsRepository.getGoodsList()
     }
 }
