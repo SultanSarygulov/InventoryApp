@@ -17,7 +17,9 @@ import com.example.inventoryapplication.databinding.FragmentArchiveBinding
 import com.example.inventoryapplication.presentation.tools.IGoods
 import com.example.inventoryapplication.presentation.RecyclerAdapter
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class ArchiveFragment : Fragment(), IGoods, SearchView.OnQueryTextListener {
 
     private lateinit var binding: FragmentArchiveBinding

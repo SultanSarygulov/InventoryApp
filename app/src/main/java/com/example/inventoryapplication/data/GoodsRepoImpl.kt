@@ -1,13 +1,17 @@
 package com.example.inventoryapplication.data
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.inventoryapplication.domain.Goods
 import com.example.inventoryapplication.domain.GoodsRepository
+import javax.inject.Inject
 
-class GoodsRepoImpl(private val goodsDao: GoodsDao) : GoodsRepository {
+class GoodsRepoImpl
+    @Inject
+    constructor(private val goodsDao: GoodsDao) : GoodsRepository {
 
-    private val goodsListLiveData = MutableLiveData<MutableList<Goods>>()
+    private val goodsListLiveData = goodsDao.readAllData()
 
     override suspend fun addGoods(goods: Goods) {
         goodsDao.addGoods(goods)
@@ -46,6 +50,7 @@ class GoodsRepoImpl(private val goodsDao: GoodsDao) : GoodsRepository {
     }
 
     override fun getGoodsList(): LiveData<MutableList<Goods>> {
+        Log.d("Chura", "getGoodsList: ${goodsListLiveData.value}")
         return goodsListLiveData
     }
 

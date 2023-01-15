@@ -17,7 +17,9 @@ import androidx.navigation.fragment.navArgs
 import com.example.inventoryapplication.domain.Goods
 import com.example.inventoryapplication.databinding.FragmentEditBinding
 import com.example.inventoryapplication.presentation.archive.ArchiveViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class EditFragment : Fragment() {
 
     private lateinit var binding: FragmentEditBinding

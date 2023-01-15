@@ -1,59 +1,49 @@
 package com.example.inventoryapplication.presentation.inventory
 
 import android.app.Application
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.viewModelScope
-import com.example.inventoryapplication.domain.Goods
-import com.example.inventoryapplication.data.GoodsDatabase
+import androidx.lifecycle.*
 import com.example.inventoryapplication.data.GoodsRepoImpl
-import com.example.inventoryapplication.data.GoodsRepositoryImpl
+import com.example.inventoryapplication.domain.Goods
+import com.example.inventoryapplication.domain.GoodsRepository
 import com.example.inventoryapplication.domain.usecases.AddGoodsUseCase
 import com.example.inventoryapplication.domain.usecases.DeleteGoodsUseCase
 import com.example.inventoryapplication.domain.usecases.EditGoodsUseCase
 import com.example.inventoryapplication.domain.usecases.GetGoodsListUseCase
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class InventoryViewModel(application: Application): AndroidViewModel(application) {
+@HiltViewModel
+class InventoryViewModel
+@Inject
+constructor(private val repository: GoodsRepository): ViewModel() {
 
 
-    private val repository: GoodsRepositoryImpl
-    private val repo: GoodsRepoImpl
-
-//    var readAllData: LiveData<MutableList<Goods>>
-
-    init {
-        val goodsDao = GoodsDatabase.getDatabase(application).goodsDao()
-        repository = GoodsRepositoryImpl(goodsDao)
-//        readAllData = .readAllData
-
-        repo = GoodsRepoImpl(goodsDao)
-    }
-
-    private val addGoodsUseCase = AddGoodsUseCase(repo)
-    private val deleteGoodsUseCase = DeleteGoodsUseCase(repo)
-    private val editGoodsUseCase = EditGoodsUseCase(repo)
-    private val getGoodsListUseCase = GetGoodsListUseCase(repo)
+    private val addGoodsUseCase = AddGoodsUseCase(repository)
+    private val deleteGoodsUseCase = DeleteGoodsUseCase(repository)
+    private val editGoodsUseCase = EditGoodsUseCase(repository)
+    private val getGoodsListUseCase = GetGoodsListUseCase(repository)
 
     val goodsList = getGoodsListUseCase.getGoodsList()
 
+
+
     fun addGoods(goods: Goods){
         viewModelScope.launch(Dispatchers.IO ) {
-            addGoodsUseCase.addGoods(goods)
+            repository.addGoods(goods)
         }
     }
 
     fun deleteGoods(goods: Goods){
         viewModelScope.launch(Dispatchers.IO) {
-            deleteGoodsUseCase.deleteGoods(goods)
+            repository.deleteGoods(goods)
         }
     }
 
     fun editGoods(goods: Goods){
         viewModelScope.launch(Dispatchers.IO) {
-            editGoodsUseCase.editGoods(goods)
+            repository.editGoods(goods)
         }
     }
 
@@ -65,7 +55,7 @@ class InventoryViewModel(application: Application): AndroidViewModel(application
 //    }
 
     fun searchData(searchQuery: String): LiveData<MutableList<Goods>>{
-        return repository.searchData(searchQuery)
+        return repository.searchGoods(searchQuery)
     }
 
 }

@@ -15,6 +15,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.view.drawToBitmap
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
@@ -25,11 +26,13 @@ import com.example.inventoryapplication.R
 import com.example.inventoryapplication.domain.Goods
 import com.example.inventoryapplication.databinding.FragmentAddBinding
 import com.example.inventoryapplication.presentation.inventory.InventoryViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class AddFragment : Fragment() {
 
     private lateinit var binding: FragmentAddBinding
-    private lateinit var mInventoryViewModel: InventoryViewModel
+    private val addViewModel: AddViewModel by viewModels()
 
     companion object{
         const val IMAGE_REQUEST_CODE = 100
@@ -41,8 +44,6 @@ class AddFragment : Fragment() {
     ): View? {
         //(activity as AppCompatActivity).supportActionBar?.title = "Добавить товар"
         // Inflate the layout for this fragment
-
-        mInventoryViewModel = ViewModelProvider(this).get(InventoryViewModel::class.java)
 
         binding = FragmentAddBinding.inflate(inflater, container, false)
 
@@ -79,17 +80,6 @@ class AddFragment : Fragment() {
         }
     }
 
-    private suspend fun getBitmap(photoPath: Drawable): Bitmap{
-        val loading = ImageLoader(requireContext())
-        val request = ImageRequest.Builder(requireContext())
-            .data(photoPath)
-            .crossfade(true)
-            .build()
-
-        val result = (loading.execute(request) as SuccessResult).drawable
-        return (result as BitmapDrawable).bitmap
-    }
-
     private fun addGoods() {
         val name = binding.goodsNameEdit.text.toString()
         val cost = binding.goodsCostEdit.text.toString()
@@ -110,7 +100,7 @@ class AddFragment : Fragment() {
     private fun addToDatabase(goods: Goods) {
         val builder = AlertDialog.Builder(requireContext())
         builder.setPositiveButton("Yes"){ _,_ ->
-            mInventoryViewModel.addGoods(goods)
+            addViewModel.addGoods(goods)
             Toast.makeText(requireContext(), "Successfully added!", Toast.LENGTH_LONG).show()
             // Navigate back
             findNavController().navigate(R.id.action_addFragment_to_inventoryFragment)
