@@ -19,21 +19,7 @@ class InventoryViewModel
 @Inject
 constructor(private val repository: GoodsRepository): ViewModel() {
 
-
-    private val addGoodsUseCase = AddGoodsUseCase(repository)
-    private val deleteGoodsUseCase = DeleteGoodsUseCase(repository)
-    private val editGoodsUseCase = EditGoodsUseCase(repository)
-    private val getGoodsListUseCase = GetGoodsListUseCase(repository)
-
-    val goodsList = getGoodsListUseCase.getGoodsList()
-
-
-
-    fun addGoods(goods: Goods){
-        viewModelScope.launch(Dispatchers.IO ) {
-            repository.addGoods(goods)
-        }
-    }
+    val goodsList = repository.getGoodsList()
 
     fun deleteGoods(goods: Goods){
         viewModelScope.launch(Dispatchers.IO) {
@@ -47,14 +33,13 @@ constructor(private val repository: GoodsRepository): ViewModel() {
         }
     }
 
-//    fun getGoodsList(){
-//        viewModelScope.launch(Dispatchers.IO) {
-//            val list = getGoodsListUseCase.getGoodsList()
-//            goodsList.postValue(list)
-//        }
-//    }
+    fun archiveGoods(goods: Goods){
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.archiveGoods(goods)
+        }
+    }
 
-    fun searchData(searchQuery: String): LiveData<MutableList<Goods>>{
+    fun searchGoods(searchQuery: String): LiveData<MutableList<Goods>>{
         return repository.searchGoods(searchQuery)
     }
 

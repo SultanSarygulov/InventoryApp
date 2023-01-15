@@ -11,6 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.view.drawToBitmap
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -23,7 +24,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class EditFragment : Fragment() {
 
     private lateinit var binding: FragmentEditBinding
-    private lateinit var mArchiveViewModel: ArchiveViewModel
+    private val editViewModel: EditViewModel by viewModels()
     private val args by navArgs<EditFragmentArgs>()
 
     override fun onCreateView(
@@ -31,8 +32,6 @@ class EditFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentEditBinding.inflate(layoutInflater, container, false)
-
-        mArchiveViewModel = ViewModelProvider(this).get(ArchiveViewModel::class.java)
 
         binding.updateImageButton.setImageBitmap(args.currentGoods.photo)
         binding.updateGoodsNameEdit.setText(args.currentGoods.name)
@@ -79,7 +78,7 @@ class EditFragment : Fragment() {
 
         if (inputCheck(name, cost, brand, amount)){
             val updatedGoods= Goods(args.currentGoods.id, name, Integer.parseInt(cost), brand, Integer.parseInt(amount), image, archived)
-            mArchiveViewModel.editGoods(updatedGoods)
+            editViewModel.editGoods(updatedGoods)
             Toast.makeText(requireContext(), "Изменения сохранены!", Toast.LENGTH_LONG).show()
             findNavController().navigateUp()
         } else {

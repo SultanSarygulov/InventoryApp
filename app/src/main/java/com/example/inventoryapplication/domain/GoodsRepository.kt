@@ -1,7 +1,6 @@
 package com.example.inventoryapplication.domain
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 
 interface GoodsRepository {
 
@@ -13,9 +12,11 @@ interface GoodsRepository {
 
     suspend fun editGoods(goods: Goods)
 
-    fun getGoods(): Goods
-
     fun getGoodsList(): LiveData<MutableList<Goods>>
 
+    fun getArchivedGoodsList(): LiveData<MutableList<Goods>>
+
     fun searchGoods(searchQuery: String): LiveData<MutableList<Goods>>
+
+    fun searchArchivedGoods(searchQuery: String): LiveData<MutableList<Goods>>
 }

@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
@@ -23,7 +24,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class ArchiveFragment : Fragment(), IGoods, SearchView.OnQueryTextListener {
 
     private lateinit var binding: FragmentArchiveBinding
-    private lateinit var mArchiveViewModel: ArchiveViewModel
+    private val mArchiveViewModel: ArchiveViewModel by viewModels()
     private lateinit var adapter: RecyclerAdapter
 
     override fun onCreateView(
@@ -37,7 +38,6 @@ class ArchiveFragment : Fragment(), IGoods, SearchView.OnQueryTextListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        mArchiveViewModel = ViewModelProvider(this)[ArchiveViewModel::class.java]
         setRecyclerView()
         setLiveDataObserver()
 
@@ -53,7 +53,7 @@ class ArchiveFragment : Fragment(), IGoods, SearchView.OnQueryTextListener {
     }
 
     private fun setLiveDataObserver(){
-        mArchiveViewModel.readArchivedData.observe(viewLifecycleOwner){
+        mArchiveViewModel.archivedGoodsList.observe(viewLifecycleOwner){
             adapter.submitList(it)
         }
     }
@@ -73,11 +73,13 @@ class ArchiveFragment : Fragment(), IGoods, SearchView.OnQueryTextListener {
         binding.archivation.text = "Восстановить"
         binding.archivation.setOnClickListener {
             unArchiveGoods(currentGoods)
+            dialog.dismiss()
         }
 
         binding.deletion.text = "Удалить"
         binding.deletion.setOnClickListener {
             deleteGoods(currentGoods)
+            dialog.dismiss()
         }
 
         dialog.show()
@@ -91,19 +93,8 @@ class ArchiveFragment : Fragment(), IGoods, SearchView.OnQueryTextListener {
         currentGoods: Goods
     ) {
         if (currentGoods.archived){
-            val archivedFalse = false
 
-            val unArchivedGoods = Goods(
-                currentGoods.id,
-                currentGoods.name,
-                currentGoods.cost,
-                currentGoods.brand,
-                currentGoods.amount,
-                currentGoods.photo,
-                archivedFalse)
-
-            mArchiveViewModel.editGoods(unArchivedGoods)
-
+            mArchiveViewModel.unarchiveGoods(currentGoods)
 
             Toast.makeText(context, "'${currentGoods.name}' восставновлен!", Toast.LENGTH_LONG).show()
 
@@ -114,24 +105,19 @@ class ArchiveFragment : Fragment(), IGoods, SearchView.OnQueryTextListener {
 
     override fun onQueryTextSubmit(query: String?): Boolean {
 
-        return true
+        return false
     }
 
     override fun onQueryTextChange(query: String): Boolean {
-        if (!TextUtils.isEmpty(query)){
-            searchArchivedData(query)
-        } else {
-            val emptyQuery = ""
-            searchArchivedData(emptyQuery)
-        }
-        return true
+        searchArchivedData(query)
+        return false
     }
 
     private fun searchArchivedData(query: String){
 
         val searchQuery = "%$query%"
 
-        mArchiveViewModel.searchArchivedGoods(searchQuery).observe(this){
+        mArchiveViewModel.searchGoods(searchQuery).observe(this){
             adapter.submitList(it)
         }
     }

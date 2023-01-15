@@ -13,17 +13,13 @@ class GoodsRepoImpl
 
     private val goodsListLiveData = goodsDao.readAllData()
 
+    private val archivedGoodsListLiveData = goodsDao.readArchivedData()
+
     override suspend fun addGoods(goods: Goods) {
         goodsDao.addGoods(goods)
     }
 
     override suspend fun archiveGoods(goods: Goods) {
-
-        var archivedStatus = true
-
-        if (goods.archived){
-            archivedStatus = false
-        }
 
         val archivedGoods = Goods(
             goods.id,
@@ -32,7 +28,7 @@ class GoodsRepoImpl
             goods.brand,
             goods.amount,
             goods.photo,
-            archivedStatus)
+            !goods.archived)
 
         editGoods(archivedGoods)
     }
@@ -45,16 +41,19 @@ class GoodsRepoImpl
         goodsDao.editGoods(goods)
     }
 
-    override fun getGoods(): Goods {
-        TODO("Not yet implemented")
+    override fun getGoodsList(): LiveData<MutableList<Goods>> {
+        return goodsListLiveData
     }
 
-    override fun getGoodsList(): LiveData<MutableList<Goods>> {
-        Log.d("Chura", "getGoodsList: ${goodsListLiveData.value}")
-        return goodsListLiveData
+    override fun getArchivedGoodsList(): LiveData<MutableList<Goods>> {
+        return archivedGoodsListLiveData
     }
 
     override fun searchGoods(searchQuery: String): LiveData<MutableList<Goods>> {
         return goodsDao.searchData(searchQuery)
+    }
+
+    override fun searchArchivedGoods(searchQuery: String): LiveData<MutableList<Goods>> {
+        return goodsDao.searchArchivedData(searchQuery)
     }
 }

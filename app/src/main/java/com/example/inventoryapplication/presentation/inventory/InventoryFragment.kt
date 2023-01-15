@@ -1,13 +1,15 @@
 package com.example.inventoryapplication.presentation.inventory
 
 import android.os.Bundle
+import android.text.TextUtils
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
@@ -21,7 +23,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class InventoryFragment : Fragment(), IGoods/*, SearchView.OnQueryTextListener*/{
+class InventoryFragment : Fragment(), IGoods, SearchView.OnQueryTextListener{
 
     private val mInventoryViewModel: InventoryViewModel by viewModels()
     private lateinit var binding: FragmentInventoryBinding
@@ -49,8 +51,8 @@ class InventoryFragment : Fragment(), IGoods/*, SearchView.OnQueryTextListener*/
         }
 
         // Set SearchBar
-//        binding.searchBar.isSubmitButtonEnabled = false
-//        binding.searchBar.setOnQueryTextListener(this)
+        binding.searchBar.isSubmitButtonEnabled = false
+        binding.searchBar.setOnQueryTextListener(this)
     }
 
     private fun setRecyclerView() {
@@ -83,10 +85,12 @@ class InventoryFragment : Fragment(), IGoods/*, SearchView.OnQueryTextListener*/
 
         binding.archivation.setOnClickListener {
             archiveGoods(currentGoods)
+            dialog.dismiss()
         }
 
         binding.deletion.setOnClickListener {
             deleteGoods(currentGoods)
+            dialog.dismiss()
         }
         dialog.show()
     }
@@ -95,22 +99,10 @@ class InventoryFragment : Fragment(), IGoods/*, SearchView.OnQueryTextListener*/
         mInventoryViewModel.deleteGoods(currentGoods)
     }
 
-    fun archiveGoods(
-        currentGoods: Goods
-    ) {
+    fun archiveGoods(currentGoods: Goods) {
         if (!currentGoods.archived){
-            val archivedTrue = true
 
-            val archivedGoods = Goods(
-                currentGoods.id,
-                currentGoods.name,
-                currentGoods.cost,
-                currentGoods.brand,
-                currentGoods.amount,
-                currentGoods.photo,
-                archivedTrue)
-
-            mInventoryViewModel.editGoods(archivedGoods)
+            mInventoryViewModel.archiveGoods(currentGoods)
 
             Toast.makeText(context, "'${currentGoods.name}' архивирован!", Toast.LENGTH_LONG).show()
 
@@ -120,27 +112,23 @@ class InventoryFragment : Fragment(), IGoods/*, SearchView.OnQueryTextListener*/
     }
 
 
-//    override fun onQueryTextSubmit(query: String?): Boolean {
-//
-//        return true
-//    }
-//
-//    override fun onQueryTextChange(query: String): Boolean {
-//        if (!TextUtils.isEmpty(query)){
-//            searchData(query)
-//        } else {
-//            val emptyQuery = ""
-//            searchData(emptyQuery)
-//        }
-//        return true
-//    }
-//
-//    private fun searchData(query: String){
-//
-//        val searchQuery = "%$query%"
-//
-//        mInventoryViewModel.searchData(searchQuery).observe(this) {
-//            adapter.submitList(it)
-//        }
-//    }
+    override fun onQueryTextSubmit(query: String): Boolean {
+
+        return false
+    }
+
+    override fun onQueryTextChange(query: String): Boolean {
+        Log.d("Chura", "onQueryTextSubmit: $query")
+        searchData(query)
+        return false
+    }
+
+    private fun searchData(query: String){
+
+        val searchQuery = "%$query%"
+
+        mInventoryViewModel.searchGoods(searchQuery).observe(this) {
+            adapter.submitList(it)
+        }
+    }
 }
