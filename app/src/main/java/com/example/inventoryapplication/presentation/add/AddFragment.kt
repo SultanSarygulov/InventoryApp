@@ -3,29 +3,21 @@ package com.example.inventoryapplication.presentation.add
 import android.app.Activity.RESULT_OK
 import android.app.AlertDialog
 import android.content.Intent
-import android.graphics.Bitmap
-import android.graphics.drawable.BitmapDrawable
-import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Bundle
 import android.text.TextUtils
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.view.drawToBitmap
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
-import coil.ImageLoader
-import coil.request.ImageRequest
-import coil.request.SuccessResult
 import com.example.inventoryapplication.R
-import com.example.inventoryapplication.domain.Goods
 import com.example.inventoryapplication.databinding.FragmentAddBinding
-import com.example.inventoryapplication.presentation.inventory.InventoryViewModel
+import com.example.inventoryapplication.domain.Goods
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -42,8 +34,6 @@ class AddFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        //(activity as AppCompatActivity).supportActionBar?.title = "Добавить товар"
-        // Inflate the layout for this fragment
 
         binding = FragmentAddBinding.inflate(inflater, container, false)
 
@@ -59,7 +49,6 @@ class AddFragment : Fragment() {
         binding.addBtn.setOnClickListener {
             addGoods()
         }
-
 
         return binding.root
     }
@@ -99,15 +88,16 @@ class AddFragment : Fragment() {
 
     private fun addToDatabase(goods: Goods) {
         val builder = AlertDialog.Builder(requireContext())
+
         builder.setPositiveButton("Yes"){ _,_ ->
             addViewModel.addGoods(goods)
             Toast.makeText(requireContext(), "Successfully added!", Toast.LENGTH_LONG).show()
             // Navigate back
             findNavController().navigate(R.id.action_addFragment_to_inventoryFragment)
         }
-        builder.setNegativeButton("No"){_, _ ->
 
-        }
+        builder.setNegativeButton("No"){_, _ -> }
+
         builder.setTitle("Добавить ${goods.name} в инвентарь?")
         builder.create().show()
     }
@@ -116,9 +106,9 @@ class AddFragment : Fragment() {
     private fun inputCheck(name: String, cost: String, brand: String, amount: String): Boolean {
         return (
                 !TextUtils.isEmpty(name) &&
-                        !TextUtils.isEmpty(cost) &&
-                        !TextUtils.isEmpty(brand) &&
-                        !TextUtils.isEmpty(amount)
+                !TextUtils.isEmpty(cost) &&
+                !TextUtils.isEmpty(brand) &&
+                !TextUtils.isEmpty(amount)
                 )
     }
 }

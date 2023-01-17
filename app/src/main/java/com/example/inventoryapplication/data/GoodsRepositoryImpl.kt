@@ -1,31 +1,51 @@
 package com.example.inventoryapplication.data
 
+import android.util.Log
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.example.inventoryapplication.domain.Goods
+import com.example.inventoryapplication.domain.GoodsRepository
+import javax.inject.Inject
 
-class GoodsRepositoryImpl(private val goodsDao: GoodsDao) {
+class GoodsRepositoryImpl
+    @Inject
+    constructor(private val goodsDao: GoodsDao) : GoodsRepository {
 
-    var readAllData: LiveData<MutableList<Goods>> = goodsDao.readAllData()
+    private val goodsListLiveData = goodsDao.readAllData()
 
-    var readArchivedData: LiveData<MutableList<Goods>> = goodsDao.readArchivedData()
+    private val archivedGoodsListLiveData = goodsDao.readArchivedData()
 
-    fun searchData(searchQuery: String): LiveData<MutableList<Goods>> {
-        return goodsDao.searchData(searchQuery)
-    }
-
-    fun searchArchivedData(searchQuery: String): LiveData<MutableList<Goods>> {
-        return goodsDao.searchArchivedData(searchQuery)
-    }
-
-    suspend fun addGoods(goods: Goods){
+    override suspend fun addGoods(goods: Goods) {
         goodsDao.addGoods(goods)
     }
 
-    suspend fun deleteGoods(goods: Goods){
+    override suspend fun archiveGoods(goods: Goods) {
+
+        val archivedGoods = Goods(
+            goods.id,
+            goods.name,
+            goods.cost,
+            goods.brand,
+            goods.amount,
+            goods.photo,
+            !goods.archived)
+
+        editGoods(archivedGoods)
+    }
+
+    override suspend fun deleteGoods(goods: Goods) {
         goodsDao.deleteGoods(goods)
     }
 
-    suspend fun editGoods(goods: Goods){
+    override suspend fun editGoods(goods: Goods) {
         goodsDao.editGoods(goods)
+    }
+
+    override fun getGoodsList(): LiveData<MutableList<Goods>> {
+        return goodsListLiveData
+    }
+
+    override fun getArchivedGoodsList(): LiveData<MutableList<Goods>> {
+        return archivedGoodsListLiveData
     }
 }

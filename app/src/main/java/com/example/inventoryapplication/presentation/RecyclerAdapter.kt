@@ -15,8 +15,11 @@ import com.example.inventoryapplication.databinding.GoodsItemBinding
 import com.example.inventoryapplication.presentation.tools.GoodsDiffCallback
 import com.example.inventoryapplication.presentation.tools.GoodsDiffUtilCallback
 import com.example.inventoryapplication.presentation.tools.IGoods
+import java.util.*
 
 class RecyclerAdapter(private val listener: IGoods): ListAdapter<Goods, GoodsViewHolder>(GoodsDiffCallback()) {
+
+    private var unfilteredList = listOf<Goods>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GoodsViewHolder {
         val view = LayoutInflater.from((parent.context)).inflate(R.layout.goods_item, parent, false)
@@ -27,5 +30,22 @@ class RecyclerAdapter(private val listener: IGoods): ListAdapter<Goods, GoodsVie
         holder.bind(getItem(position))
     }
 
-//    override fun getItemCount(): Int  = goodsList.size
+    fun modifyList(list : List<Goods>) {
+        unfilteredList = list
+        submitList(list)
+    }
+
+    fun filter(query: CharSequence?) {
+        val list = mutableListOf<Goods>()
+
+        // perform the data filtering
+        if(!query.isNullOrEmpty()) {
+            list.addAll(unfilteredList.filter {
+                it.name.lowercase(Locale.getDefault()).contains(query.toString().lowercase(Locale.getDefault()))})
+        } else {
+            list.addAll(unfilteredList)
+        }
+
+        submitList(list)
+    }
 }

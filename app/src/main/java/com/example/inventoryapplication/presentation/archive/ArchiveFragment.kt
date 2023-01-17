@@ -53,8 +53,8 @@ class ArchiveFragment : Fragment(), IGoods, SearchView.OnQueryTextListener {
     }
 
     private fun setLiveDataObserver(){
-        mArchiveViewModel.archivedGoodsList.observe(viewLifecycleOwner){
-            adapter.submitList(it)
+        mArchiveViewModel.archivedGoodsList.observe(viewLifecycleOwner){list ->
+            adapter.modifyList(list)
         }
     }
 
@@ -85,7 +85,7 @@ class ArchiveFragment : Fragment(), IGoods, SearchView.OnQueryTextListener {
         dialog.show()
     }
 
-    fun deleteGoods(currentGoods: Goods) {
+    private fun deleteGoods(currentGoods: Goods) {
         mArchiveViewModel.deleteGoods(currentGoods)
     }
 
@@ -109,17 +109,7 @@ class ArchiveFragment : Fragment(), IGoods, SearchView.OnQueryTextListener {
     }
 
     override fun onQueryTextChange(query: String): Boolean {
-        searchArchivedData(query)
+        adapter.filter(query)
         return false
     }
-
-    private fun searchArchivedData(query: String){
-
-        val searchQuery = "%$query%"
-
-        mArchiveViewModel.searchGoods(searchQuery).observe(this){
-            adapter.submitList(it)
-        }
-    }
-
 }

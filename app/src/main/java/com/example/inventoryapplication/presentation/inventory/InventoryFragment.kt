@@ -65,7 +65,7 @@ class InventoryFragment : Fragment(), IGoods, SearchView.OnQueryTextListener{
     private fun setLiveDataObserver() {
 
         mInventoryViewModel.goodsList.observe(viewLifecycleOwner) {
-            adapter.submitList(it)
+            adapter.modifyList(it)
         }
 
     }
@@ -95,11 +95,11 @@ class InventoryFragment : Fragment(), IGoods, SearchView.OnQueryTextListener{
         dialog.show()
     }
 
-    fun deleteGoods(currentGoods: Goods){
+    private fun deleteGoods(currentGoods: Goods){
         mInventoryViewModel.deleteGoods(currentGoods)
     }
 
-    fun archiveGoods(currentGoods: Goods) {
+    private fun archiveGoods(currentGoods: Goods) {
         if (!currentGoods.archived){
 
             mInventoryViewModel.archiveGoods(currentGoods)
@@ -118,17 +118,8 @@ class InventoryFragment : Fragment(), IGoods, SearchView.OnQueryTextListener{
     }
 
     override fun onQueryTextChange(query: String): Boolean {
-        Log.d("Chura", "onQueryTextSubmit: $query")
-        searchData(query)
-        return false
+        adapter.filter(query)
+        return true
     }
 
-    private fun searchData(query: String){
-
-        val searchQuery = "%$query%"
-
-        mInventoryViewModel.searchGoods(searchQuery).observe(this) {
-            adapter.submitList(it)
-        }
-    }
 }

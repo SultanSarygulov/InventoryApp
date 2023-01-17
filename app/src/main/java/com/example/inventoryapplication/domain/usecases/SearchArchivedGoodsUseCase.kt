@@ -4,9 +4,10 @@ import androidx.lifecycle.LiveData
 import com.example.inventoryapplication.domain.Goods
 import com.example.inventoryapplication.domain.GoodsRepository
 
+//Deprecated
 class SearchArchivedGoodsUseCase(private val goodsRepository: GoodsRepository) {
 
-    fun searchArchivedGoods(searchQuery: String): LiveData<MutableList<Goods>> {
-        return goodsRepository.searchArchivedGoods(searchQuery)
-    }
+//    fun searchArchivedGoods(searchQuery: String): LiveData<MutableList<Goods>> {
+//        return goodsRepository.searchArchivedGoods(searchQuery)
+//    }
 }

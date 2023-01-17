@@ -1,10 +1,9 @@
 package com.example.inventoryapplication.di
 
-import android.app.Application
 import android.content.Context
 import com.example.inventoryapplication.data.GoodsDao
 import com.example.inventoryapplication.data.GoodsDatabase
-import com.example.inventoryapplication.data.GoodsRepoImpl
+import com.example.inventoryapplication.data.GoodsRepositoryImpl
 import com.example.inventoryapplication.domain.GoodsRepository
 import dagger.Module
 import dagger.Provides
@@ -26,6 +25,6 @@ object AppModule {
     @Singleton
     @Provides
     fun provideRepository(goodsDao: GoodsDao): GoodsRepository{
-        return GoodsRepoImpl(goodsDao)
+        return GoodsRepositoryImpl(goodsDao)
     }
 }

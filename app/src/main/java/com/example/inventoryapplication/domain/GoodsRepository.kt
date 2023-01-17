@@ -15,8 +15,4 @@ interface GoodsRepository {
     fun getGoodsList(): LiveData<MutableList<Goods>>
 
     fun getArchivedGoodsList(): LiveData<MutableList<Goods>>
-
-    fun searchGoods(searchQuery: String): LiveData<MutableList<Goods>>
-
-    fun searchArchivedGoods(searchQuery: String): LiveData<MutableList<Goods>>
 }

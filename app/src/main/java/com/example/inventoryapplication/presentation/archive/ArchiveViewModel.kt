@@ -1,13 +1,8 @@
 package com.example.inventoryapplication.presentation.archive
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.inventoryapplication.domain.Goods
-import com.example.inventoryapplication.data.GoodsDatabase
-import com.example.inventoryapplication.data.GoodsRepositoryImpl
 import com.example.inventoryapplication.domain.GoodsRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -38,9 +33,4 @@ constructor(private val repository: GoodsRepository): ViewModel() {
             repository.archiveGoods(goods)
         }
     }
-
-    fun searchGoods(searchQuery: String): LiveData<MutableList<Goods>>{
-        return repository.searchArchivedGoods(searchQuery)
-    }
-
 }
