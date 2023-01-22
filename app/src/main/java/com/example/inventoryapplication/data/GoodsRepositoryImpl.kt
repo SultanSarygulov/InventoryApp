@@ -48,4 +48,8 @@ class GoodsRepositoryImpl
     override fun getArchivedGoodsList(): LiveData<MutableList<Goods>> {
         return archivedGoodsListLiveData
     }
+
+    override fun searchArchivedGoods(searchQuery: String): LiveData<MutableList<Goods>> {
+        return goodsDao.searchArchivedData(searchQuery)
+    }
 }
