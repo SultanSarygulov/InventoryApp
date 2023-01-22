@@ -1,11 +1,17 @@
 package com.example.inventoryapplication.data
 
+import android.graphics.BitmapFactory
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.lifecycleScope
+import com.example.inventoryapplication.R
 import com.example.inventoryapplication.domain.Goods
 import com.example.inventoryapplication.domain.GoodsRepository
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import javax.inject.Inject
+import kotlin.random.Random
 
 class GoodsRepositoryImpl
     @Inject

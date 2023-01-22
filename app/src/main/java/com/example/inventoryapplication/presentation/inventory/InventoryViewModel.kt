@@ -21,6 +21,12 @@ constructor(private val repository: GoodsRepository): ViewModel() {
         }
     }
 
+    fun addGoods(goods: Goods){
+        viewModelScope.launch(Dispatchers.IO ) {
+            repository.addGoods(goods)
+        }
+    }
+
     fun archiveGoods(goods: Goods){
         viewModelScope.launch(Dispatchers.IO) {
             repository.archiveGoods(goods)

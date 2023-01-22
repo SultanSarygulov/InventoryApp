@@ -1,5 +1,7 @@
 package com.example.inventoryapplication.presentation.inventory
 
+import android.graphics.Bitmap
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
@@ -7,8 +9,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView
+import androidx.core.view.drawToBitmap
 import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
@@ -21,6 +25,7 @@ import com.example.inventoryapplication.presentation.tools.IGoods
 import com.example.inventoryapplication.presentation.RecyclerAdapter
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import dagger.hilt.android.AndroidEntryPoint
+import kotlin.random.Random
 
 @AndroidEntryPoint
 class InventoryFragment : Fragment(), IGoods, SearchView.OnQueryTextListener{
@@ -29,12 +34,17 @@ class InventoryFragment : Fragment(), IGoods, SearchView.OnQueryTextListener{
     private lateinit var binding: FragmentInventoryBinding
     private lateinit var adapter: RecyclerAdapter
 
+    private lateinit var icon: Bitmap
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
 
         binding = FragmentInventoryBinding.inflate(inflater, container, false)
+
+        val image = binding.root.findViewById<ImageButton>(R.id.addButton)
+        icon = image.drawToBitmap()
 
         return binding.root
     }
@@ -44,6 +54,14 @@ class InventoryFragment : Fragment(), IGoods, SearchView.OnQueryTextListener{
 
         setRecyclerView()
         setLiveDataObserver()
+
+
+
+//        for (i in 1..100){
+//            val testGoods = Goods(0, "Goods $i", 1000, "Me", 100, icon, Random.nextBoolean())
+//
+//            mInventoryViewModel.addGoods(testGoods)
+//        }
 
         // Navigate to Add fragment
         binding.addButton.setOnClickListener {
