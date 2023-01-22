@@ -1,5 +1,6 @@
 package com.example.inventoryapplication.presentation.archive
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.inventoryapplication.domain.Goods
@@ -32,5 +33,9 @@ constructor(private val repository: GoodsRepository): ViewModel() {
         viewModelScope.launch(Dispatchers.IO) {
             repository.archiveGoods(goods)
         }
+    }
+
+    fun searchGoods(searchQuery: String): LiveData<MutableList<Goods>> {
+        return repository.searchArchivedGoods(searchQuery)
     }
 }

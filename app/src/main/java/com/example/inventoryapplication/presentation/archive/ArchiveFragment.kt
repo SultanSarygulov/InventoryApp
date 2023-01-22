@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
@@ -54,7 +55,7 @@ class ArchiveFragment : Fragment(), IGoods, SearchView.OnQueryTextListener {
 
     private fun setLiveDataObserver(){
         mArchiveViewModel.archivedGoodsList.observe(viewLifecycleOwner){list ->
-            adapter.modifyList(list)
+            adapter.submitList(list)
         }
     }
 
@@ -109,7 +110,9 @@ class ArchiveFragment : Fragment(), IGoods, SearchView.OnQueryTextListener {
     }
 
     override fun onQueryTextChange(query: String): Boolean {
-        adapter.filter(query)
+        mArchiveViewModel.archivedGoodsList.observe(viewLifecycleOwner){
+            adapter.submitList(it)
+        }
         return false
     }
 }
