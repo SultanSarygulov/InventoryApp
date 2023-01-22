@@ -110,7 +110,9 @@ class ArchiveFragment : Fragment(), IGoods, SearchView.OnQueryTextListener {
     }
 
     override fun onQueryTextChange(query: String): Boolean {
-        mArchiveViewModel.archivedGoodsList.observe(viewLifecycleOwner){
+        val searchQuery = "%$query%"
+
+        mArchiveViewModel.searchGoods(searchQuery).observe(this){
             adapter.submitList(it)
         }
         return false
